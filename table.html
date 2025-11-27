@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<title>Abdullah</title>
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300i,400,400i,500,600,700,800" rel="stylesheet">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" >	
+		
+		<!--Favicon for this site -->
+		<link rel="icon" href="project/3595030.png"/>		
+		
+				<link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+		
+		<!-- Fonts -aa->
+		<link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome.min.css">
+		
+		<!-- Icon -->
+		<link rel="stylesheet" type="text/css" href="assets/fonts/simple-line-icons.css">
+		
+		<!-- Slicknav -->
+		<link rel="stylesheet" type="text/css" href="assets/css/slicknav.css">
+		
+		<!-- Owl-carousel -->
+		<link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/owl.theme.default.min.css">
+		
+		<!-- Nivo Lightbox -->
+		<link rel="stylesheet" type="text/css" href="assets/css/nivo-lightbox.css" >
+		
+		<!-- Text-animated -->
+		<link rel="stylesheet" type="text/css" href="assets/css/animated-headline.css" >
+		
+		<!-- Normalize -->
+		<link rel="stylesheet" type="text/css" href="assets/css/normalize.css">
+		
+		<!-- Animate -->
+		<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+		
+		<!-- Main Style -->
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+		
+		<!-- Responsive Style -->
+		<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">					
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+  
+	<body data-spy="scroll" data-offset="80">
+
+
+        <table id="contactsTable" border="1" style="width:100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Subject</th>
+      <th>Message</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Data will be inserted here -->
+  </tbody>
+</table>
+
+
+
+<script>
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyBNZR3MHVLAj8bqPMqNsmGFKyWMnmrt7Hg",
+  authDomain: "abdullahprotfolio.firebaseapp.com",
+  projectId: "abdullahprotfolio",
+  storageBucket: "abdullahprotfolio.firebasestorage.app",
+  messagingSenderId: "314684931200",
+  appId: "1:314684931200:web:81d83daa4a2c91c14f7a65",
+  measurementId: "G-XVBCZ4HKNE"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+import { getDocs, collection, query, orderBy } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+// Fetch data from Firestore and populate table
+async function loadContacts() {
+  const tableBody = document.querySelector("#contactsTable tbody");
+  tableBody.innerHTML = ""; // Clear existing rows
+
+  try {
+    // Reference to the 'contacts' collection, ordered by timestamp descending
+    const q = query(collection(db, "contacts"), orderBy("timestamp", "desc"));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${data.name || ""}</td>
+        <td>${data.email || ""}</td>
+        <td>${data.subject || ""}</td>
+        <td>${data.message || ""}</td>
+        <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : ""}</td>
+      `;
+
+      tableBody.appendChild(row);
+    });
+
+  } catch (error) {
+    console.error("Error fetching contacts:", error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Failed to load contacts: ' + error.message
+    });
+  }
+}
+
+// Load contacts on page load
+window.addEventListener('DOMContentLoaded', loadContacts);
+
+</script>
+        	</body>
+</html>
