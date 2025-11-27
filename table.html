@@ -72,67 +72,55 @@
 </table>
 
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, query, orderBy, serverTimestamp } 
+    from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-<script>
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBNZR3MHVLAj8bqPMqNsmGFKyWMnmrt7Hg",
+    authDomain: "abdullahprotfolio.firebaseapp.com",
+    projectId: "abdullahprotfolio",
+    storageBucket: "abdullahprotfolio.firebasestorage.app",
+    messagingSenderId: "314684931200",
+    appId: "1:314684931200:web:81d83daa4a2c91c14f7a65",
+    measurementId: "G-XVBCZ4HKNE"
+  };
 
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyBNZR3MHVLAj8bqPMqNsmGFKyWMnmrt7Hg",
-  authDomain: "abdullahprotfolio.firebaseapp.com",
-  projectId: "abdullahprotfolio",
-  storageBucket: "abdullahprotfolio.firebasestorage.app",
-  messagingSenderId: "314684931200",
-  appId: "1:314684931200:web:81d83daa4a2c91c14f7a65",
-  measurementId: "G-XVBCZ4HKNE"
-};
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+  // Fetch data from Firestore and populate table
+  async function loadContacts() {
+    const tableBody = document.querySelector("#contactsTable tbody");
+    tableBody.innerHTML = ""; // Clear existing rows
 
+    try {
+      const q = query(collection(db, "contacts"), orderBy("timestamp", "desc"));
+      const querySnapshot = await getDocs(q);
 
-import { getDocs, collection, query, orderBy } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
-// Fetch data from Firestore and populate table
-async function loadContacts() {
-  const tableBody = document.querySelector("#contactsTable tbody");
-  tableBody.innerHTML = ""; // Clear existing rows
-
-  try {
-    // Reference to the 'contacts' collection, ordered by timestamp descending
-    const q = query(collection(db, "contacts"), orderBy("timestamp", "desc"));
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${data.name || ""}</td>
-        <td>${data.email || ""}</td>
-        <td>${data.subject || ""}</td>
-        <td>${data.message || ""}</td>
-        <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : ""}</td>
-      `;
-
-      tableBody.appendChild(row);
-    });
-
-  } catch (error) {
-    console.error("Error fetching contacts:", error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'Failed to load contacts: ' + error.message
-    });
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${data.name || ""}</td>
+          <td>${data.email || ""}</td>
+          <td>${data.subject || ""}</td>
+          <td>${data.message || ""}</td>
+          <td>${data.timestamp ? data.timestamp.toDate().toLocaleString() : ""}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    } catch (error) {
+      console.error("Error fetching contacts:", error);
+    }
   }
-}
 
-// Load contacts on page load
-window.addEventListener('DOMContentLoaded', loadContacts);
-
+  // Load contacts on page load
+  window.addEventListener('DOMContentLoaded', loadContacts);
 </script>
+
         	</body>
 </html>
