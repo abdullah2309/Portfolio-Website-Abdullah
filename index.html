@@ -86,20 +86,21 @@
         
         .chat-window {
             width: 380px;
-            height: 520px;
+            height: 540px;
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,.15);
             position: fixed;
-            bottom: 90px;
-            right: 25px;
-            z-index: 9999;
+            bottom: 30px;
+            right:90px;
+            z-index: 10000;
             display: none;
             overflow: hidden;
             font-family: 'Poppins', sans-serif;
             border: 1px solid #f0f0f0;
             transform: translateY(20px);
             opacity: 0;
+
             transition: all 0.3s ease;
         }
         
@@ -476,6 +477,19 @@
             margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(240, 147, 251, 0.3);
         }
+
+.typing-image {
+    width: 30px;   /* adjust size */
+    height: 30px;
+    animation: bounce 1s infinite; /* optional animation */
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+		
     </style>
 
 	<body data-spy="scroll" data-offset="80">
@@ -491,7 +505,8 @@
         <div class="chat-header">
             <div class="chat-title">
                 <div class="chat-avatar">
-                    <i class="fas fa-robot"></i>
+                    <!-- <i class="fas fa-robot"></i> -->
+					 <img src="project/3595030.png" alt="">
                 </div>
                 <span>Abdullah Assistant</span>
             </div>
@@ -524,16 +539,16 @@
             </div>
         </div>
         
-        <div class="typing-indicator" id="typingIndicator">
-            <i class="fas fa-circle-notch fa-spin"></i>
-            <span>Abdullah Assistant is typing</span>
-            <div class="typing-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        
+    <div class="typing-indicator" id="typingIndicator">
+    <!-- Replaced spinner with image -->
+    <img src="project/3595030.png" alt="Typing..." class="typing-image">
+    <span>Abdullah Assistant is typing</span>
+    <div class="typing-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
         <div class="chat-input-area">
             <input type="text" id="chatInput" class="chat-input" placeholder="Type your message...">
             <button id="sendBtn" class="send-btn">
@@ -541,7 +556,7 @@
             </button>
         </div>
         
-        <div class="quick-actions">
+        <div class="quick-actions ">
             <button class="action-btn" id="clearChat">
                 <i class="fas fa-trash"></i> Clear
             </button>
