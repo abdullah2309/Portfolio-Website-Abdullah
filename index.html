@@ -53,7 +53,508 @@
 		<![endif]-->
 	</head>
   
+	
+ <style>
+        /* Enhanced Chatbot Styles - Modern UI */
+        .chat-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+        }
+        
+        .chat-toggle-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chat-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .chat-window {
+            width: 380px;
+            height: 520px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,.15);
+            position: fixed;
+            bottom: 90px;
+            right: 25px;
+            z-index: 9999;
+            display: none;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            border: 1px solid #f0f0f0;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-window.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 18px 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .chat-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chat-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .chat-control-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .chat-control-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .chat-body {
+            height: 340px;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #f8f9fe;
+            scrollbar-width: thin;
+            scrollbar-color: #c5c5c5 transparent;
+        }
+        
+        .chat-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .chat-body::-webkit-scrollbar-thumb {
+            background-color: #c5c5c5;
+            border-radius: 10px;
+        }
+        
+        .message {
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin: 10px 0;
+            max-width: 85%;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+            animation: messageAppear 0.3s ease;
+        }
+        
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .user-msg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 6px;
+        }
+        
+        .bot-msg {
+            background: white;
+            color: #333;
+            border: 1px solid #e6e9f0;
+            border-bottom-left-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .chat-input-area {
+            display: flex;
+            border-top: 1px solid #e6e9f0;
+            padding: 15px;
+            gap: 10px;
+            background: white;
+            align-items: center;
+        }
+        
+        .chat-input {
+            flex: 1;
+            border: 1px solid #e6e9f0;
+            border-radius: 24px;
+            padding: 12px 18px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .chat-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+        
+        .send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e6e9f0;
+            background: white;
+        }
+        
+        .suggestion-chip {
+            background: #f0f2f5;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .suggestion-chip:hover {
+            background: #e4e6eb;
+            transform: translateY(-2px);
+        }
+        
+        .typing-indicator {
+            display: none;
+            padding: 12px 18px;
+            color: #6c757d;
+            font-style: italic;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #667eea;
+            display: inline-block;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dots span:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% { 
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% { 
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+        
+        .quick-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: white;
+            border-top: 1px solid #e6e9f0;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            transition: all 0.2s;
+        }
+        
+        .action-btn:hover {
+            background: #f0f2f5;
+            color: #667eea;
+        }
+        
+        .timestamp {
+            font-size: 10px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 4px;
+            text-align: right;
+        }
+        
+        .bot-msg .timestamp {
+            color: #888;
+            text-align: left;
+        }
+        
+        /* Dark theme styles */
+        .chat-window.dark {
+            background: #1e1e2e;
+            border-color: #2a2a3a;
+        }
+        
+        .chat-window.dark .chat-body {
+            background: #252536;
+        }
+        
+        .chat-window.dark .bot-msg {
+            background: #2d2d44;
+            color: #e2e8f0;
+            border-color: #3a3a4a;
+        }
+        
+        .chat-window.dark .suggestions {
+            background: #1e1e2e;
+            border-color: #2a2a3a;
+        }
+        
+        .chat-window.dark .suggestion-chip {
+            background: #2d2d44;
+            color: #c5c5d3;
+        }
+        
+        .chat-window.dark .suggestion-chip:hover {
+            background: #3a3a4a;
+        }
+        
+        .chat-window.dark .chat-input-area {
+            background: #1e1e2e;
+            border-color: #2a2a3a;
+        }
+        
+        .chat-window.dark .chat-input {
+            background: #2d2d44;
+            border-color: #3a3a4a;
+            color: #e2e8f0;
+        }
+        
+        .chat-window.dark .chat-input:focus {
+            border-color: #667eea;
+        }
+        
+        .chat-window.dark .quick-actions {
+            background: #1e1e2e;
+            border-color: #2a2a3a;
+        }
+        
+        .chat-window.dark .action-btn {
+            color: #a0a0b0;
+        }
+        
+        .chat-window.dark .action-btn:hover {
+            background: #2d2d44;
+            color: #667eea;
+        }
+        
+        .chat-window.dark .typing-indicator {
+            color: #a0a0b0;
+        }
+        
+        /* Notification badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Welcome message styling */
+        .welcome-msg {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(240, 147, 251, 0.3);
+        }
+    </style>
+
 	<body data-spy="scroll" data-offset="80">
+
+		 <div class="chat-toggle">
+        <button id="openChat" class="chat-toggle-btn">
+            <i class="fas fa-comments"></i>
+            <span class="notification-badge" id="notificationBadge" style="display: none;">1</span>
+        </button>
+    </div>
+
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <div class="chat-title">
+                <div class="chat-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <span>Abdullah Assistant</span>
+            </div>
+            <div class="chat-controls">
+                <button id="minimizeChat" class="chat-control-btn">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button id="closeChat" class="chat-control-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="suggestions">
+            <button class="suggestion-chip" data-msg="What are your skills?">
+                <i class="fas fa-code"></i> Skills
+            </button>
+            <button class="suggestion-chip" data-msg="Tell me about your projects">
+                <i class="fas fa-project-diagram"></i> Projects
+            </button>
+            <button class="suggestion-chip" data-msg="How can I contact you?">
+                <i class="fas fa-envelope"></i> Contact
+            </button>
+        </div>
+        
+        <div id="chatBody" class="chat-body">
+            <div class="welcome-msg">
+                <h4>Hello! I'm Abdullah's Assistant</h4>
+                <p>I can help you learn more about his skills, projects, and experience</p>
+            </div>
+        </div>
+        
+        <div class="typing-indicator" id="typingIndicator">
+            <i class="fas fa-circle-notch fa-spin"></i>
+            <span>Abdullah Assistant is typing</span>
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type your message...">
+            <button id="sendBtn" class="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+        
+        <div class="quick-actions">
+            <button class="action-btn" id="clearChat">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="action-btn" id="toggleTheme">
+                <i class="fas fa-moon"></i> Theme
+            </button>
+            <button class="action-btn" id="exportChat">
+                <i class="fas fa-download"></i> Export
+            </button>
+        </div>
+    </div>
+
+
 
 		<!-- START PRELOADER -->
 			<!-- <div class="preloader">
@@ -796,4 +1297,13 @@ form.addEventListener('submit', async (e) => {
 		<script src="assets/js/main.js"></script>
 		
 	</body>
+
+
+		<script src="assets/js/chatbod.js"></script>
+
+
+
+
+	
+
 </html>
