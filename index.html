@@ -46,7 +46,10 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 		
 		<!-- Responsive Style -->
-		<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">					
+		<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -54,13 +57,155 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
-  
-	
-
-
 	<body data-spy="scroll" data-offset="80">
 
-		 <div class="chat-toggle">
+        
+
+        <!-- Loading Screen -->
+    <!-- <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div style="text-align: center; color: white;">
+            <h3>🚀 Initializing Abdullah Assistant v3.0</h3>
+            <p>Loading professional features... <span id="loadingProgress">0%</span></p>
+        </div>
+    </div> -->
+
+
+
+    <!-- Chat Toggle Button -->
+    <div class="chat-toggle">
+        <button id="openChat" class="chat-toggle-btn">
+            <i class="fas fa-comments"></i>
+            <span class="notification-badge" id="notificationBadge"></span>
+        </button>
+    </div>
+
+    <!-- Main Chat Window -->
+    <div id="chatWindow" class="chat-window">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div class="chat-title">
+                <div class="chat-avatar">
+                    <img src="https://via.placeholder.com/42x42/667eea/ffffff?text=A" alt="Abdullah" id="chatAvatar">
+                </div>
+                <div class="title-content">
+                    <span class="title-main">Abdullah Assistant v3.0</span>
+                    <span class="title-status" id="chatStatus">Online</span>
+                </div>
+            </div>
+            <div class="chat-controls">
+                <button id="chatStats" class="chat-control-btn" title="Statistics">
+                    <i class="fas fa-chart-bar"></i>
+                </button>
+                <button id="minimizeChat" class="chat-control-btn" title="Minimize">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button id="toggleTheme" class="chat-control-btn" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="closeChat" class="chat-control-btn" title="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Suggestion Chips -->
+        <div class="suggestions" id="suggestions">
+            <button class="suggestion-chip" data-msg="What are your skills?">
+                <i class="fas fa-code"></i> Skills
+            </button>
+            <button class="suggestion-chip" data-msg="Tell me about your projects">
+                <i class="fas fa-project-diagram"></i> Projects
+            </button>
+            <button class="suggestion-chip" data-msg="How can I contact you?">
+                <i class="fas fa-envelope"></i> Contact
+            </button>
+            <button class="suggestion-chip" data-msg="What is your experience?">
+                <i class="fas fa-briefcase"></i> Experience
+            </button>
+            <button class="suggestion-chip" data-msg="Are you available for hire?">
+                <i class="fas fa-handshake"></i> Hiring
+            </button>
+        </div>
+
+        <!-- Chat Body -->
+        <div id="chatBody" class="chat-body">
+            <!-- Welcome Message will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-avatar">
+                <img src="https://via.placeholder.com/32x32/667eea/ffffff?text=A" alt="Typing..." id="typingAvatar">
+            </div>
+            <span class="typing-text">Abdullah Assistant is typing</span>
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <div class="input-wrapper">
+                <input type="text" id="chatInput" class="chat-input" 
+                       placeholder="Ask me about skills, projects, experience, or contact..." 
+                       autocomplete="off">
+                <button id="sendBtn" class="send-btn" title="Send Message (Ctrl+Enter)">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="action-btn" id="clearChat" title="Clear Chat (Ctrl+L)">
+                <i class="fas fa-trash-alt"></i> Clear
+            </button>
+            <button class="action-btn" id="searchChat" title="Search History (Ctrl+K)">
+                <i class="fas fa-search"></i> Search
+            </button>
+            <button class="action-btn" id="exportChat" title="Export Chat">
+                <i class="fas fa-download"></i> Export
+            </button>
+            <button class="action-btn" id="chatAnalytics" title="Analytics (Ctrl+S)">
+                <i class="fas fa-chart-line"></i> Analytics
+            </button>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-search"></i> Search Chat History</h3>
+                <button class="modal-close" onclick="closeSearchModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search messages, categories...">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Modal -->
+    <div id="analyticsModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-chart-bar"></i> Chat Analytics</h3>
+                <button class="modal-close" onclick="closeAnalyticsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="analyticsContent">
+                <!-- Analytics content will be inserted here -->
+            </div>
+        </div>
+    </div>
+	<!-- <div class="chat-toggle">
         <button id="openChat" class="chat-toggle-btn">
             <i class="fas fa-comments"></i>
             <span class="notification-badge" id="notificationBadge" style="display: none;">1</span>
@@ -71,7 +216,7 @@
         <div class="chat-header">
             <div class="chat-title">
                 <div class="chat-avatar">
-                    <!-- <i class="fas fa-robot"></i> -->
+ <i class="fas fa-robot"></i> -
 					 <img src="project/3595030.png" alt="">
                 </div>
                 <span>Abdullah Assistant</span>
@@ -106,7 +251,8 @@
         </div>
         
     <div class="typing-indicator" id="typingIndicator">
-    <!-- Replaced spinner with image -->
+
+     Replaced spinner with image 
     <img src="project/3595030.png" alt="Typing..." class="typing-image">
     <span>Abdullah Assistant is typing</span>
     <div class="typing-dots">
@@ -114,7 +260,7 @@
         <span></span>
         <span></span>
     </div>
-</div>
+</div>  
         <div class="chat-input-area">
             <input type="text" id="chatInput" class="chat-input" placeholder="Type your message...">
             <button id="sendBtn" class="send-btn">
@@ -133,8 +279,7 @@
                 <i class="fas fa-download"></i> Export
             </button>
         </div>
-    </div>
-
+    </div> -->
 
 
 		<!-- START PRELOADER -->
@@ -210,14 +355,10 @@
 			</section>
 		<!-- Hero Area End -->
 		
-	
 		<!-- Portfolio Section -->
 			<section id="portfolio" class="dark_bg section-padding">
 				<!-- Container Starts -->
 				<div class="container">        
-		
-
-						
 					<section id="about"  class="dark_bg services section-padding" id="about">
 						<h2 class="section-title wow flipInX" data-wow-delay="0.4s" id="about"> <span>About</span> Me</h2>
 						<p style="color: white;">
@@ -417,7 +558,7 @@ Along with .NET, I also work with Laravel, Flutter, and various front-end techno
 				</div>
 			</div>
 		</section>
-	<!-- Services Section End -->
+	    <!-- Services Section End -->
 		
 	
 	<div  class="dark_bg blog-area section-padding">
@@ -793,70 +934,8 @@ User Panel – book services, view available labors, and manage requests.
 			<i class="fa fa-arrow-up"></i>
 		</a> -->
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyBNZR3MHVLAj8bqPMqNsmGFKyWMnmrt7Hg",
-  authDomain: "abdullahprotfolio.firebaseapp.com",
-  projectId: "abdullahprotfolio",
-  storageBucket: "abdullahprotfolio.firebasestorage.app",
-  messagingSenderId: "314684931200",
-  appId: "1:314684931200:web:81d83daa4a2c91c14f7a65",
-  measurementId: "G-XVBCZ4HKNE"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// Form handling
-const form = document.getElementById('main_contact_form');
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const name = form['name'].value;
-  const email = form['email'].value;
-  const subject = form['subject'].value;
-  const message = form['message'].value;
-
-  try {
-    await addDoc(collection(db, "contacts"), {
-      name,
-      email,
-      subject,
-      message,
-      timestamp: serverTimestamp()
-    });
-
-    // SweetAlert success
-    Swal.fire({
-      icon: 'success',
-      title: 'Message Sent!',
-      text: 'Your message has been sent successfully.',
-      confirmButtonText: 'OK'
-    });
-
-    form.reset();
-  } catch (error) {
-    // SweetAlert error
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: `Error sending message: ${error.message}`,
-      confirmButtonText: 'OK'
-    });
-  }
-});
-
-</script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+		<script type="module" src="assets/js/firebase.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="assets/js/jquery-min.js"></script>
 		<script src="assets/js/popper.min.js"></script>
@@ -876,15 +955,67 @@ form.addEventListener('submit', async (e) => {
 		<script src="assets/js/nivo-lightbox.js"></script>
 		<script src="assets/js/form-contact.js"></script>
 		<script src="assets/js/main.js"></script>
-		
-	</body>
-
-
+    </body>
+		<script type="module" src="assets/js/firebase.js"></script>
 		<script src="assets/js/chatbod.js"></script>
-
-
-
-
-	
-
+        <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+        
+        // Firebase config
+        const firebaseConfig = {
+          apiKey: "AIzaSyBNZR3MHVLAj8bqPMqNsmGFKyWMnmrt7Hg",
+          authDomain: "abdullahprotfolio.firebaseapp.com",
+          projectId: "abdullahprotfolio",
+          storageBucket: "abdullahprotfolio.firebasestorage.app",
+          messagingSenderId: "314684931200",
+          appId: "1:314684931200:web:81d83daa4a2c91c14f7a65",
+          measurementId: "G-XVBCZ4HKNE"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Form handling
+        const form = document.getElementById('main_contact_form');
+        
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+        
+          const name = form['name'].value;
+          const email = form['email'].value;
+          const subject = form['subject'].value;
+          const message = form['message'].value;
+        
+          try {
+            await addDoc(collection(db, "contacts"), {
+              name,
+              email,
+              subject,
+              message,
+              timestamp: serverTimestamp()
+            });
+        
+            // SweetAlert success
+            Swal.fire({
+              icon: 'success',
+              title: 'Message Sent!',
+              text: 'Your message has been sent successfully.',
+              confirmButtonText: 'OK'
+            });
+        
+            form.reset();
+          } catch (error) {
+            // SweetAlert error
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `Error sending message: ${error.message}`,
+              confirmButtonText: 'OK'
+            });
+          }
+        });
+        
+        </script>
 </html>
