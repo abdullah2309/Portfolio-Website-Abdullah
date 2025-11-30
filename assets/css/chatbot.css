@@ -191,13 +191,14 @@ body {
 /* Chat Window */
 .chat-window {
     width: 420px;
-    height: 620px;
+    /* height: 620px; */
+    height: 500px;
     background: var(--light-card);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
     position: fixed;
-    bottom: 90px;
-    right: 90px;
+    bottom: 30px;
+    right: 120px;
     z-index: 10000;
     display: none;
     overflow: hidden;
@@ -217,7 +218,8 @@ body {
 .chat-header {
     background: var(--primary-gradient);
     color: white;
-    padding: 20px 24px;
+    padding: 9px 16px;
+    /* padding: 20px 24px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -263,6 +265,9 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.p-ia{
+    color: #ffffff !important;
 }
 
 .title-content {
@@ -350,9 +355,11 @@ body {
 
 /* Chat Body */
 .chat-body {
-    height: 360px;
+    /* height: 360px; */
+    height: 310px;
     overflow-y: auto;
-    padding: 24px;
+    /* padding: 24px; */
+    padding: 13px;
     background: var(--light-bg);
     scrollbar-width: thin;
     scrollbar-color: rgba(102, 126, 234, 0.3) transparent;
@@ -465,7 +472,7 @@ body {
 
 .bot-msg {
     background: white;
-    color: var(--light-text);
+    color: var(--light-text) ;
     border: 1px solid rgba(102, 126, 234, 0.1);
     border-bottom-left-radius: 8px;
     box-shadow: var(--shadow-sm);
@@ -501,7 +508,7 @@ body {
 }
 
 .message-content strong {
-    color: var(--light-text);
+    color: var(--dark-text);
     font-weight: 600;
 }
 
@@ -641,7 +648,8 @@ body {
 
 /* Input Area */
 .chat-input-area {
-    padding: 20px 24px;
+    /* padding: 20px 24px; */
+    padding: 9px 20px;
     background: white;
     border-top: 1px solid rgba(102, 126, 234, 0.1);
 }
@@ -704,7 +712,8 @@ body {
 .quick-actions {
     display: flex;
     justify-content: space-around;
-    padding: 16px 20px;
+    /* padding: 16px 20px; */
+    padding: 9px 20px;
     background: var(--light-bg);
     border-top: 1px solid rgba(102, 126, 234, 0.1);
     gap: 8px;
@@ -899,9 +908,11 @@ body {
 
 .chat-window.dark-theme .bot-msg {
     background: var(--dark-card);
-    color: var(--dark-text);
+    color: var(--dark-text) !important;
     border-color: rgba(102, 126, 234, 0.3);
 }
+
+
 
 .chat-window.dark-theme .suggestions {
     background: var(--dark-card);
@@ -1039,6 +1050,9 @@ body {
 }
       
       
+
+
+/* ${actionsHtml ? `<div class="message-actions">${actionsHtml}</div>` : ''} */
       
       
       

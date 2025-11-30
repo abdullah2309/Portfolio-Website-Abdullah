@@ -279,7 +279,7 @@ I'm your **professional AI assistant** for **Abdullah Shahid** - Full Stack Deve
 // ============================================
 let appState = {
     chatHistory: [],
-    isDarkTheme: false,
+    isDarkTheme: true,
     isTyping: false,
     isChatOpen: false,
     searchQuery: '',
@@ -392,7 +392,7 @@ const MessageSystem = {
                 ${metadata.confidence ? `<span class="confidence-badge">✓${metadata.confidence}%</span>` : ''}
                 ${metadata.responseTime ? `<span class="response-time">${metadata.responseTime}ms</span>` : ''}
             </div>
-            ${actionsHtml ? `<div class="message-actions">${actionsHtml}</div>` : ''}
+            
         `;
 
         const chatBody = document.getElementById('chatBody');
@@ -487,19 +487,9 @@ const MessageSystem = {
             document.getElementById('chatBody').innerHTML = `
                 <div class="welcome-msg enhanced">
                     <div class="welcome-avatar">A</div>
-                    <h3>🧹 Chat Cleared Successfully!</h3>
-                    <p style="color: #666; margin-top: 10px;">Start a new conversation below 👇</p>
-                    <div class="welcome-actions" style="margin-top: 20px;">
-                        <button class="quick-start-btn" onclick="MessageSystem.handleAction('🛠️ Skills')">
-                            🛠️ Skills
-                        </button>
-                        <button class="quick-start-btn" onclick="MessageSystem.handleAction('📂 Projects')">
-                            📂 Projects
-                        </button>
-                        <button class="quick-start-btn" onclick="MessageSystem.handleAction('📞 Contact')">
-                            📞 Contact
-                        </button>
-                    </div>
+                    <h3>Chat Cleared Successfully!</h3>
+                    <p style="color: #666; margin-top: 10px;">Start a new conversation below</p>
+                   
                 </div>
             `;
             Utils.saveState();
@@ -631,8 +621,9 @@ const NotificationSystem = {
             info: 'ℹ️ Info'
         };
         
-        alert(`${notificationTypes[type] || 'ℹ️ Info'}\n\n${message}`);
-    }
+        // alert(`${notificationTypes[type] || 'ℹ️ Info'}\n\n${message}`);
+        console.log(`[Notification] ${type.toUpperCase()}: ${message}`);
+        }
 };
 
 // ============================================
@@ -841,32 +832,9 @@ const AppInitializer = {
                 <div class="welcome-avatar">
                     <i class="fas fa-user-tie" style="font-size: 32px; color: white;"></i>
                 </div>
-                <h3>🎉 Welcome to Abdullah Assistant v3.0</h3>
-                <p>I'm your <strong>AI-powered professional assistant</strong> for <strong>Abdullah Shahid</strong></p>
-                <p style="color: #666; font-size: 14px; margin-top: 15px;">
-                    Ask me about skills, projects, experience, contact information, or hiring opportunities.
-                </p>
-                <div class="welcome-actions">
-                    <button class="quick-start-btn" onclick="MessageSystem.handleAction('🛠️ Skills')">
-                        🛠️ Explore Skills
-                    </button>
-                    <button class="quick-start-btn" onclick="MessageSystem.handleAction('📂 Projects')">
-                        📂 View Projects
-                    </button>
-                    <button class="quick-start-btn" onclick="MessageSystem.handleAction('📞 Contact')">
-                        📞 Get Contact Info
-                    </button>
-                </div>
-                <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(102,126,234,0.1); font-size: 12px; color: #888; opacity: 0.8; text-align: left;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                        <kbd style="background: rgba(102,126,234,0.1); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(102,126,234,0.2); font-size: 11px;">Ctrl+Enter</kbd>
-                        <span>Send message</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <kbd style="background: rgba(102,126,234,0.1); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(102,126,234,0.2); font-size: 11px;">Esc</kbd>
-                        <span>Close chat</span>
-                    </div>
-                </div>
+                <h3>Welcome to Abdullah Assistant</h3>
+                <p class="p-ia">I'm your <strong>AI-powered professional assistant</strong> for <strong>Abdullah Shahid</strong></p>
+                      
             </div>
         `;
     },
