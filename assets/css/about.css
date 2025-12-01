@@ -1,0 +1,203 @@
+.about-me-section {
+    min-height: 100vh; /* Make sure it takes full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 0; /* Add some vertical padding */
+}
+
+/* --- Left Column: About Text & Spotify --- */
+.who-am-i-tag {
+    color: #ffffff; /* White color */
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    opacity: 0.7; /* Slightly dim it */
+}
+
+.about-me-title {
+    font-size: 4rem; /* Larger title */
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+}
+
+.about-me-text {
+    font-size: 1.1rem;
+    color: #ced4da; /* Lighter grey for main text */
+    max-width: 500px; /* Control line length */
+}
+
+/* Spotify Player Mockup */
+.spotify-player {
+    background: linear-gradient(135deg, #1db954, #1ed760); /* Spotify green gradient */
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px; /* Constrain width */
+    color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.spotify-icon i {
+    font-size: 2.5rem;
+    color: #ffffff;
+}
+
+.song-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.artist-name {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.progress-bar-container {
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.time-stamps span {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+
+/* --- Right Column: Code Editor Mockup --- */
+.code-editor-mockup {
+    background-color: #1a1a1a; /* Dark background for the editor */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333; /* Subtle border */
+    position: relative; /* For the scroll-top button */
+}
+
+.editor-header {
+    background-color: #2c2c2c; /* Slightly lighter header for distinction */
+    padding: 10px 15px;
+    margin: -24px -24px 20px -24px; /* Adjust margin to extend background to edges */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    display: flex; /* Ensure traffic lights and filename are aligned */
+    align-items: center;
+}
+
+.traffic-lights .dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.traffic-lights .red { background-color: #ff5f56; }
+.traffic-lights .yellow { background-color: #ffbd2e; }
+.traffic-lights .green { background-color: #27c93f; }
+
+.file-name {
+    color: #ced4da;
+    font-size: 0.9rem;
+    font-family: 'Consolas', 'Monaco', monospace; /* Monospace for file name */
+    flex-grow: 1; /* Pushes button to the right */
+    text-align: center; /* Center the filename */
+}
+
+.scroll-top-btn {
+    background-color: #8b5cf6; /* Purple color for button */
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    position: absolute; /* Position relative to .code-editor-mockup */
+    right: 20px; /* Adjust as needed */
+    bottom: 20px; /* Adjust as needed */
+}
+
+.scroll-top-btn:hover {
+    background-color: #7c4dff;
+}
+
+
+.code-block {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #f8f9fa; /* Default code color */
+    white-space: pre-wrap; /* Ensure wrapping within the pre tag */
+}
+
+/* Syntax Highlighting (manual for this mockup) */
+.code-block .keyword { color: #8b5cf6; } /* Purple for const, return, this */
+.code-block .variable { color: #50fa7b; } /* Green for dev */
+.code-block .string { color: #e9e92a; } /* Yellow for strings */
+.code-block .number { color: #bd93f9; } /* Light purple for numbers */
+.code-block .property { color: #5ff9e8; } /* Cyan for properties */
+.code-block .boolean { color: #ff79c6; } /* Pink for boolean */
+.code-block .function-name { color: #f282a3; } /* Orange-pink for function name */
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+    .about-me-title {
+        font-size: 3rem;
+    }
+    .about-me-text {
+        font-size: 1rem;
+    }
+    .spotify-player {
+        max-width: none; /* Allow it to fill width on smaller screens */
+    }
+    .editor-header {
+        margin: -24px -24px 20px -24px; /* Ensure header fits within padding */
+    }
+    .scroll-top-btn {
+        position: static; /* Make it flow with content on smaller screens */
+        margin-left: auto; /* Push it to the right */
+    }
+    .code-editor-mockup {
+         margin-top: 30px; /* Add space between sections on mobile */
+    }
+}
+
+@media (max-width: 575.98px) {
+    .about-me-section {
+        padding: 60px 0;
+    }
+    .about-me-title {
+        font-size: 2.5rem;
+    }
+    .about-me-text {
+        font-size: 0.95rem;
+    }
+    .spotify-icon i {
+        font-size: 2rem;
+    }
+    .song-title {
+        font-size: 1rem;
+    }
+    .artist-name {
+        font-size: 0.8rem;
+    }
+    .code-block {
+        font-size: 0.85rem;
+    }
+}
+.abou-new{
+    text-align: start !important;
+}
