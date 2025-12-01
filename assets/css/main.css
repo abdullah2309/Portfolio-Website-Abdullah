@@ -1154,3 +1154,9 @@ Start FunFacts CSS
 					background: rgba(255, 255, 255, 0.2);
 				}
 
+
+.contact_form form input,
+.contact_form form textarea
+{
+  color: white !important;
+}

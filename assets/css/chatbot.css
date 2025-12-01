@@ -148,7 +148,7 @@ body {
 
 .chat-toggle-btn:hover {
     transform: scale(1.1) rotate(360deg);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    /* box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4); */
 }
 
 @keyframes float {
@@ -231,7 +231,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    /* box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3); */
     position: relative;
     overflow: hidden;
 }
@@ -411,8 +411,9 @@ body {
     margin: 0 auto 20px;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-    background: var(--primary-gradient);
+    /* box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2); */
+    /* background: var(--primary-gradient); */
+    background:linear-gradient(202deg, rgb(110 231 34 / 24%) 0%, transparent 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -478,7 +479,7 @@ body {
     color: white;
     margin-left: auto;
     border-bottom-right-radius: 8px;
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    /* box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3); */
 }
 
 .bot-msg {
