@@ -75,7 +75,8 @@
     <!-- Chat Toggle Button -->
     <div class="chat-toggle">
         <button id="openChat" class="chat-toggle-btn">
-            <i class="fas fa-comments"></i>
+            <!-- <i class="fas fa-comments"></i> -->
+			<i class="fas fa-robot"></i>			
             <span class="notification-badge" id="notificationBadge"></span>
         </button>
     </div>
@@ -94,13 +95,18 @@
                 </div>
             </div>
             <div class="chat-controls">
-                <button id="chatStats" class="chat-control-btn" title="Statistics">
+                <!-- <button id="chatStats" class="chat-control-btn" title="Statistics">
                     <i class="fas fa-chart-bar"></i>
-                </button>
+                </button> -->
                 <button id="minimizeChat" class="chat-control-btn" title="Minimize">
                     <i class="fas fa-minus"></i>
                 </button>
-                <button id="toggleTheme" class="chat-control-btn" title="Toggle Theme">
+				        
+            <button class="chat-control-btn"  id="clearChat" title="Clear Chat (Ctrl+L)">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+			
+                <button id="toggleTheme" class="chat-control-btn d-none" title="Toggle Theme">
                     <i class="fas fa-moon"></i>
                 </button>
                 <button id="closeChat" class="chat-control-btn" title="Close">
@@ -159,11 +165,12 @@
         </div>
 
         <!-- Quick Actions -->
-        <div class="quick-actions">
-            <button class="action-btn" id="clearChat" title="Clear Chat (Ctrl+L)">
+        <!-- <div class="quick-actions">
+            <button class="action-btn" style="color: white;" id="clearChat" title="Clear Chat (Ctrl+L)">
                 <i class="fas fa-trash-alt"></i> Clear
             </button>
-            <button class="action-btn" id="searchChat" title="Search History (Ctrl+K)">
+			</div> -->
+            <!-- <button class="action-btn" id="searchChat" title="Search History (Ctrl+K)">
                 <i class="fas fa-search"></i> Search
             </button>
             <button class="action-btn" id="exportChat" title="Export Chat">
@@ -171,8 +178,8 @@
             </button>
             <button class="action-btn" id="chatAnalytics" title="Analytics (Ctrl+S)">
                 <i class="fas fa-chart-line"></i> Analytics
-            </button>
-        </div>
+            </button> -->
+        
     </div>
 
     <!-- Search Modal -->
