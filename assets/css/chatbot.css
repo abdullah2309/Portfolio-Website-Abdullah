@@ -15,12 +15,14 @@
     --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
     --danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    --dark-bg: #1a1a2e;
-    --dark-card: #16213e;
+    /* --dark-bg: #16213e; */
+    --dark-bg: #00000078;
+    --dark-card: #00000033;
     --dark-text: #e2e8f0;
-    --light-bg: #f8f9fe;
-    --light-card: #ffffff;
-    --light-text: #2d3748;
+    --light-bg: #00000078;
+    --light-card: #00000033;
+    --light-text: #e2e8f0;
+    /* #000 */
     --border-radius: 20px;
     --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.12);
@@ -110,7 +112,8 @@ body {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background: var(--primary-gradient);
+    /* background: var(--primary-gradient); */
+    background:#ff0 ;
     border: none;
     color: white;
     font-size: 24px;
@@ -122,6 +125,10 @@ body {
     justify-content: center;
     position: relative;
     overflow: hidden;
+}
+.chat-toggle-btn i {
+    color: #000 !important;
+    transition: transform 0.4s;
 }
 
 .chat-toggle-btn::before {
@@ -216,7 +223,8 @@ body {
 
 /* Chat Header */
 .chat-header {
-    background: var(--primary-gradient);
+    /* background: var(--primary-gradient); */
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
     color: white;
     padding: 9px 16px;
     /* padding: 20px 24px; */
@@ -356,11 +364,12 @@ body {
 /* Chat Body */
 .chat-body {
     /* height: 360px; */
-    height: 310px;
+    height: 360px;
     overflow-y: auto;
     /* padding: 24px; */
     padding: 13px;
-    background: var(--light-bg);
+    /* background: var(--light-bg); */
+    background: #00000033;
     scrollbar-width: thin;
     scrollbar-color: rgba(102, 126, 234, 0.3) transparent;
 }
@@ -463,7 +472,9 @@ body {
 }
 
 .user-msg {
-    background: var(--primary-gradient);
+    background:     linear-gradient(
+60deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+    /* background: var(--primary-gradient); */
     color: white;
     margin-left: auto;
     border-bottom-right-radius: 8px;
@@ -471,13 +482,16 @@ body {
 }
 
 .bot-msg {
-    background: white;
+    /* background: white; */
     color: var(--light-text) ;
     border: 1px solid rgba(102, 126, 234, 0.1);
     border-bottom-left-radius: 8px;
     box-shadow: var(--shadow-sm);
 }
 
+#heading-1 {
+    color: white !important;
+}
 /* Message Categories */
 .message-category {
     position: absolute;
@@ -498,9 +512,9 @@ body {
 }
 
 /* Priority Styling */
-.priority-high { border-left: 4px solid #2ed573; }
-.priority-normal { border-left: 4px solid #ffa502; }
-.priority-low { border-left: 4px solid #ff6b7a; }
+/* .priority-high { border-left: 4px solid #2ed573; } */
+/* .priority-normal { border-left: 4px solid #ffa502; } */
+/* .priority-low { border-left: 4px solid #ff6b7a; } */
 
 /* Message Content */
 .message-content {
@@ -649,8 +663,8 @@ body {
 /* Input Area */
 .chat-input-area {
     /* padding: 20px 24px; */
-    padding: 9px 20px;
-    background: white;
+        padding: 13px 22px;
+    /* background: white; */
     border-top: 1px solid rgba(102, 126, 234, 0.1);
 }
 
@@ -662,29 +676,34 @@ body {
 
 .chat-input {
     flex: 1;
-    border: 2px solid rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.1);
     border-radius: 25px;
     padding: 14px 20px;
     font-family: inherit;
-    font-size: 14px;
+    color: white;
+    font-size: 14px;;
     outline: none;
     transition: all 0.3s ease;
     background: var(--light-bg);
 }
 
+
 .chat-input:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-    background: white;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+    /* box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1); */
+    /* background: white; */
     transform: scale(1.02);
 }
 
 .chat-input::placeholder {
     color: #999;
 }
-
+.send-btn i {
+    color: #000 !important;
+}
 .send-btn {
-    background: var(--primary-gradient);
+    /* background: var(--primary-gradient); */
+    background: #ff0;
     border: none;
     width: 48px;
     height: 48px;
@@ -926,6 +945,7 @@ body {
 }
 
 .chat-window.dark-theme .chat-input-area {
+    /* background: var(--dark-card); */
     background: var(--dark-card);
     border-color: rgba(102, 126, 234, 0.3);
 }
@@ -1050,6 +1070,8 @@ body {
 }
       
       
+
+
 
 
 /* ${actionsHtml ? `<div class="message-actions">${actionsHtml}</div>` : ''} */

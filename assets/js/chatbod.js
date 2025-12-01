@@ -487,7 +487,7 @@ const MessageSystem = {
             document.getElementById('chatBody').innerHTML = `
                 <div class="welcome-msg enhanced">
                     <div class="welcome-avatar">A</div>
-                    <h3>Chat Cleared Successfully!</h3>
+                    <h3 id="heading-1">Chat Cleared Successfully!</h3>
                     <p style="color: #666; margin-top: 10px;">Start a new conversation below</p>
                    
                 </div>
@@ -832,7 +832,7 @@ const AppInitializer = {
                 <div class="welcome-avatar">
                     <i class="fas fa-user-tie" style="font-size: 32px; color: white;"></i>
                 </div>
-                <h3>Welcome to Abdullah Assistant</h3>
+                <h3 id="heading-1">Welcome to Abdullah Assistant</h3>
                 <p class="p-ia">I'm your <strong>AI-powered professional assistant</strong> for <strong>Abdullah Shahid</strong></p>
                       
             </div>
@@ -933,16 +933,16 @@ const AppInitializer = {
         }
 
         // Theme toggle
-        const themeToggleBtn = document.getElementById('toggleTheme');
+        const themeToggleBtn = document.getElementById('toggleThem');
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', ThemeSystem.toggle);
         }
 
         // Stats button in header
-        const statsBtn = document.getElementById('chatStats');
-        if (statsBtn) {
-            statsBtn.addEventListener('click', AnalyticsSystem.show);
-        }
+        // const statsBtn = document.getElementById('chatStats');
+        // if (statsBtn) {
+        //     statsBtn.addEventListener('click', AnalyticsSystem.show);
+        // }
 
         // Global keyboard shortcuts
         document.addEventListener('keydown', (e) => {
