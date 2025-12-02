@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Abdullah - Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300i,400,400i,500,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="icon" href="project/3595030.png"/>
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Match the dark background from your dashboard's style block */
+            background: #000000b1; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            /* Match the dark container background from your dashboard's style block */
+            background: #000000f8; 
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Stronger shadow for contrast */
+            text-align: center;
+        }
+
+        .login-header h2 {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #ff0; /* Highlight color */
+        }
+
+        .login-header p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-control {
+            background-color: #333;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            background-color: #444;
+            border-color: #ff0; /* Focus highlight */
+            color: #fff;
+            box-shadow: none;
+        }
+
+        label {
+            color: #ccc;
+            margin-bottom: 5px;
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background-color: #ff0;
+            border: none;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background-color: #e0e000;
+        }
+
+        #login-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none; /* Hidden by default */
+        }
+
+        .message-error {
+            background-color: #5c0000;
+            color: #ffcccc;
+            border: 1px solid #ff0000;
+        }
+
+        .message-success {
+            background-color: #0a4f00;
+            color: #ccffcc;
+            border: 1px solid #00ff00;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2><i class='bx bxs-lock-alt'></i> Admin Login</h2>
+            <p>Enter your credentials to access the Contacts Dashboard.</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email"><i class='bx bx-envelope'></i> Email Address</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class='bx bx-key'></i> Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn-login" id="login-button">
+                Log In
+            </button>
+        </form>
+        
+        <div id="login-message"></div>
+    </div>
+
+  <script>
+const loginForm = document.getElementById('loginForm');
+const loginMessage = document.getElementById('login-message');
+const loginButton = document.getElementById('login-button');
+
+// ✅ Fixed Admin Credentials
+const ADMIN_EMAIL = "abdullah@admin.com";
+const ADMIN_PASSWORD = "abdullahali@123";
+
+function showMessage(message, isError) {
+    loginMessage.textContent = message;
+    loginMessage.style.display = 'block';
+    loginMessage.className = isError ? 'message-error' : 'message-success';
+}
+
+loginForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    loginButton.textContent = "Logging in...";
+    loginButton.disabled = true;
+    loginMessage.style.display = "none";
+
+    // ✅ Fixed Credential Check
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        sessionStorage.setItem("login_status", "true");
+
+        showMessage("Login successful! Redirecting...", false);
+
+        setTimeout(() => {
+            window.location.href = "table.html"; // Dashboard
+        }, 1500);
+    } else {
+        showMessage("Invalid email or password.", true);
+        loginButton.textContent = "Log In";
+        loginButton.disabled = false;
+    }
+});
+
+// ✅ Auto Redirect If Already Logged In
+(function () {
+    if (sessionStorage.getItem("login_status") === "true") {
+        window.location.href = "index.html";
+    }
+})();
+</script>
+
+</body>
+</html>
