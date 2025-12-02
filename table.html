@@ -24,6 +24,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">					
 		</head>
+    
   <style>
     body {
       font-family: 'Poppins', sans-serif; /* Use Poppins from your link */
@@ -173,8 +174,25 @@
     }
   </style>
   
+
+  <script>
+  let login_status = sessionStorage.getItem("login_status");
+  if (login_status !== "true") {
+      window.location.href = "login.html";
+  }
+  </script>
 	<body >
-        <div class="table-container">
+    <button id="logoutButton" style="position:fixed;top:80px;right:50px;background:#ff0;color:#000;border:none;padding:10px 15px;border-radius:6px;font-weight:600;cursor:pointer;">
+Logout
+</button>
+<script>
+document.getElementById("logoutButton").addEventListener("click", function () {
+    sessionStorage.removeItem("login_status");
+    window.location.href = "login.html";
+});
+</script>
+
+        <div class="table-container ">
             <div class="dashboard-header">
                 <h2><i class='bx bxs-dashboard'></i> Contacts Dashboard</h2>
                 <p>Manage messages received through your portfolio contact form.</p>
@@ -299,5 +317,5 @@
   window.addEventListener('DOMContentLoaded', loadContacts);
 </script>
 
-        	</body>
-</html>
+    </body>
+</html> 
