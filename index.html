@@ -1,198 +1,22 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="icon" href="assets/fv2-C5sXC4rQ.png"/>
-
-
-    <title>Abdullah - Projects</title>
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        min-height: 100vh;
-        padding: 50px;
-        font-family: Arial, Helvetica, sans-serif;
-        background: #f8fafc;
-      }
-
-      /* Grid */
-      .projects-grid {
-        width: 100%;
-        max-width: 1200px;
-        margin: auto;
-
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-      }
-
-      /* Card */
-      .project-card {
-        overflow: hidden;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 18px;
-
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-
-        transition: 0.3s ease;
-      }
-
-      .project-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
-      }
-
-      /* Image */
-      .project-image {
-        width: 100%;
-        height: 220px;
-        overflow: hidden;
-      }
-
-      .project-image img {
-        width: 100%;
-        height: 100%;
-        display: block;
-
-        object-fit: cover;
-
-        transition: transform 0.4s ease;
-      }
-
-      .project-card:hover .project-image img {
-        transform: scale(1.05);
-      }
-
-      /* Card Bottom */
-      .project-footer {
-        padding: 18px;
-      }
-
-      /* View Button */
-      .view-button {
-        width: 100%;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-
-        padding: 12px 18px;
-
-        border-radius: 10px;
-        background: #1b4dff;
-        color: #ffffff;
-
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 700;
-
-        transition: 0.3s ease;
-      }
-
-      .view-button:hover {
-        background: #0f3edb;
-      }
-
-      /* Tablet */
-      @media (max-width: 900px) {
-        .projects-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      /* Mobile */
-      @media (max-width: 600px) {
-        body {
-          padding: 20px;
-        }
-
-        .projects-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
+    <title>Abdullah — Software Engineer & Full-Stack Developer</title>
+    <meta name="description" content="Portfolio of Abdullah, Software Engineer & Full-Stack Developer at Aptech specializing in .NET, Laravel, React, and Flutter." />
+    <meta property="og:title" content="Abdullah — Software Engineer & Full-Stack Developer" />
+    <meta property="og:description" content="Building Secure & Scalable Web & Mobile Solutions. Specialized in .NET 8, Laravel, React, and Flutter." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" />
+    <!-- <link rel="icon" href="./src//assets/f.png"/> -->
+    <script type="module" crossorigin src="/assets/index-DYfzPhKn.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BAz5accU.css">
   </head>
-
-  <body>
-    <section class="projects-grid">
-      <!-- Card 1 -->
-      <article class="project-card">
-        <div class="project-image">
-          <img src="app-images/get-github-profile.png" alt="GitHub Profile" />
-        </div>
-
-        <div class="project-footer">
-          <a href="app/Get-Github-Profile.html" TARGET="_blank" class="view-button">
-            View
-            <span>→</span>
-          </a>
-        </div>
-      </article>
-
-            <article class="project-card">
-        <div class="project-image">
-          <img src="app-images/protfolio.png" alt="GitHub Profile" />
-        </div>
-
-        <div class="project-footer">
-          <a href="app/portfolio.html" TARGET="_blank" class="view-button">
-            View
-            <span>→</span>
-          </a>
-        </div>
-      </article>
-
-       <article class="project-card">
-        <div class="project-image">
-          <img src="game-image/tetris.png" alt="GitHub Profile" />
-          <!-- <h2>tetris</h2> -->
-        </div>
-
-        <div class="project-footer">
-          <a href="games/tetris.html" TARGET="_blank" class="view-button">
-            View
-            <span>→</span>
-          </a>
-        </div>
-      </article>
-
-      
-      <!-- <article class="project-card">
-        <div class="project-image">
-          <img src="app-images/get-github-profile.png" alt="GitHub Profile" />
-        </div>
-
-        <div class="project-footer">
-          <a href="#" class="view-button">
-            View
-            <span>→</span>
-          </a>
-        </div>
-      </article>
-
-      
-      <article class="project-card">
-        <div class="project-image">
-          <img src="app-images/get-github-profile.png" alt="GitHub Profile" />
-        </div>
-
-        <div class="project-footer">
-          <a href="#" class="view-button">
-            View
-            <span>→</span>
-          </a>
-        </div>
-      </article> -->
-    </section>
+  <body class="bg-white text-slate-900 antialiased selection:bg-[#1B4DFF] selection:text-white min-h-screen overflow-x-clip">
+    <div id="root"></div>
   </body>
 </html>
