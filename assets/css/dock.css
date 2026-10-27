@@ -1,0 +1,192 @@
+/* ============================================================== */
+/* ===== CENTER-BOTTOM FLOATING NAV TAB (Home | About) ========== */
+/* ============================================================== */
+/* A pill-shaped tab docked at the bottom-center of the viewport.
+   Sits above every section, follows the user as they scroll, and
+   routes to the same showSection() the sidebar nav uses.
+   Theme-aware (light/dark), responsive, and accessible. */
+.dock-nav {
+  position: fixed;
+  left: 50%; /* centred over the content — refined per breakpoint in responsive.css */
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 9995;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  background: color-mix(in srgb, var(--bg-card) 86%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+  font-family: "Inter", system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: transform;
+}
+[data-theme="dark"] .dock-nav {
+  background: color-mix(in srgb, var(--bg-card) 80%, transparent);
+  border-color: var(--border-light);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Individual nav button inside the dock.
+   NOTE: only the ACTIVE tab shows its label — inactive tabs are
+   icon-only. The gap is created by the label itself. */
+.dock-nav__btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.dock-nav__btn:hover {
+  color: var(--text-dark);
+}
+.dock-nav__btn:focus-visible {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+.dock-nav__btn.is-active {
+  color: #ffffff;
+  background: var(--primary-blue);
+  box-shadow: 0 4px 12px
+    color-mix(in srgb, var(--primary-blue) 30%, transparent);
+}
+[data-theme="dark"] .dock-nav__btn.is-active {
+  color: #0d1014;
+  background: var(--primary-blue);
+}
+.dock-nav__btn i {
+  font-size: 12px;
+  transition: transform 0.25s ease;
+}
+
+
+/* --- Label: hidden (icon-only) when inactive, visible when active --- */
+.dock-nav__label {
+  display: inline-block;
+  max-width: 0;
+  margin-left: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1.2;
+  transition:
+    max-width 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    margin-left 0.3s ease,
+    opacity 0.2s ease;
+}
+.dock-nav__btn.is-active {
+  padding: 9px 16px;
+}
+.dock-nav__btn.is-active .dock-nav__label {
+  max-width: 90px;
+  margin-left: 6px;
+  opacity: 1;
+}
+
+/* --- Resume button (always shows its label) --- */
+.dock-nav__resume {
+  padding: 9px 14px;
+  color: var(--text-dark);
+  background: color-mix(in srgb, var(--bg-card-alt) 75%, transparent);
+  border: 1px solid var(--border-light);
+  text-decoration: none;
+}
+.dock-nav__resume .dock-nav__label {
+  max-width: 90px;
+  margin-left: 6px;
+  opacity: 1;
+}
+.dock-nav__resume:hover {
+  color: var(--primary-blue);
+  background: color-mix(in srgb, var(--primary-blue) 10%, var(--bg-card));
+  /* border-color: var(--primary-blue); */
+}
+[data-theme="dark"] .dock-nav__resume {
+  color: var(--text-dark);
+  background: color-mix(in srgb, var(--bg-card-alt) 85%, transparent);
+}
+[data-theme="dark"] .dock-nav__resume:hover {
+  color: var(--primary-blue);
+  background: color-mix(in srgb, var(--primary-blue) 18%, var(--bg-card));
+}
+
+/* Vertical separator between Home and About */
+.dock-nav__sep {
+  display: inline-block;
+  width: 1px;
+  height: 18px;
+  background: var(--border-soft);
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+/* Hide the dock nav on very small screens to avoid clutter —
+   the sidebar nav still works there. */
+@media (max-width: 480px) {
+  .dock-nav {
+    bottom: 14px;
+    padding: 5px;
+  }
+  .dock-nav__btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}
+
+/* Reduced motion — disable the lift animation */
+@media (prefers-reduced-motion: reduce) {
+  .dock-nav,
+  .dock-nav:hover,
+  .dock-nav__btn,
+  .dock-nav__btn i {
+    transition: none !important;
+  }
+  .dock-nav:hover {
+    transform: translateX(-50%) !important;
+  }
+}
+
+/* ============================================================== */
+/* ===== SITE-WIDE CONSISTENCY (castcany) ======================== */
+/* ============================================================== */
+/* Make sure every scrollable container has consistent overscroll
+   behavior so the dock nav never gets covered by a scroll bounce. */
+.page-section--scrollable,
+#content-play,
+.main-container,
+.scrollable-content,
+.sidebar-container {
+  overscroll-behavior: contain;
+}
+/* Ensure the dock nav stays above Lenis-driven content layers */
+.dock-nav {
+  isolation: isolate;
+}

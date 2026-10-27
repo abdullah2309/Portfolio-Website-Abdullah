@@ -1,0 +1,191 @@
+/* ==============================================================
+   responsive.css — final responsive layer.
+   Loaded last, so everything here wins over the other files.
+   Keep every rule inside a max-width (or motion) media query so
+   the desktop experience stays untouched.
+   ============================================================== */
+
+/* --------------------------------------------------------------
+   1. Fluid viewport units — mobile URL bars shrink the viewport
+   -------------------------------------------------------------- */
+@supports (height: 100dvh) {
+  .page-section {
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
+  }
+  @media (max-width: 767px) {
+    /* .sidebar-container keeps its own `max-height: 85vh` + auto
+       scrollbar from base.css — only the content column flows free. */
+    .main-container {
+      max-height: none;
+    }
+  }
+}
+
+/* --------------------------------------------------------------
+   2. Sidebar / main layout on phones (≤ 767px)
+   -------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* The inline `max-height: 420px` on .scrollable-content would clip
+     the sidebar on phones — force the whole profile to flow instead. */
+  .sidebar-container .scrollable-content {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .sidebar-container {
+    width: 100%;
+    padding: 20px 16px 24px;
+  }
+  .main-container {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .projects-section {
+    padding: 16px 14px;
+  }
+  .projects-section .projects-header {
+    margin-bottom: 14px;
+  }
+}
+
+/* --------------------------------------------------------------
+   3. About tab padding — `px-10` is too wide on small screens
+   -------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  #about {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (max-width: 640px) {
+  #about {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Bottom clearance so the floating dock never covers content */
+.about-shell {
+  padding-bottom: 110px;
+}
+#content-play {
+  padding-bottom: 90px;
+}
+
+/* --------------------------------------------------------------
+   4. Typography that has to shrink on narrow viewports
+   -------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .about-hero {
+    padding: 20px 0 18px;
+    margin-bottom: 18px;
+  }
+  .about-hero__role {
+    font-size: 14px;
+  }
+  .about-hero__tagline,
+  .about-intro p,
+  .about-card__text {
+    font-size: 13px;
+  }
+  .about-section-header__title {
+    font-size: 18px;
+  }
+  .about-intro {
+    padding-left: 14px;
+    margin-bottom: 22px;
+  }
+  .my-text-tilte2-main {
+    font-size: 16px !important;
+    line-height: 1.7;
+  }
+  .about-shell {
+    padding-top: 0;
+  }
+}
+
+/* --------------------------------------------------------------
+   5. About headline — 34px/44px is a desktop size. Below 1440 the
+      column gets much narrower, so scale the big text fluidly or a
+      phone turns the intro into a 15-line wall.
+   -------------------------------------------------------------- */
+@media (max-width: 1439px) {
+  #about .hover-p .my-text-tilte2 {
+    font-size: clamp(19px, 1.6vw + 12px, 34px);
+    line-height: 1.34 !important;
+    letter-spacing: -0.4px;
+  }
+}
+
+/* --------------------------------------------------------------
+   6. Extra breathing room handled in experience.css
+      (its own 4 → 3 → 2 → 1 breakpoints live next to the card rules)
+   -------------------------------------------------------------- */
+
+/* --------------------------------------------------------------
+   6. Dock nav (Home / About / Resume) centred over the content
+   -------------------------------------------------------------- */
+.dock-nav {
+  left: 50%;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .dock-nav {
+    left: calc(50% + 150px); /* 300px sidebar on tablets */
+  }
+}
+@media (min-width: 1024px) {
+  .dock-nav {
+    left: calc(50% + 190px); /* 380px sidebar on desktop */
+  }
+}
+@media (max-width: 480px) {
+  .dock-nav {
+    bottom: 12px;
+    padding: 5px;
+    gap: 3px;
+  }
+  .dock-nav__btn {
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+  .dock-nav__btn.is-active,
+  .dock-nav__resume {
+    padding: 8px 13px;
+  }
+}
+
+/* --------------------------------------------------------------
+   7. Touch devices — no hover-only affordances, bigger targets
+   -------------------------------------------------------------- */
+@media (hover: none) {
+  .exp-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-light);
+  }
+  .dock-nav__btn {
+    min-height: 40px;
+  }
+}
+
+/* --------------------------------------------------------------
+   8. Very wide screens — keep the reading column comfortable
+   -------------------------------------------------------------- */
+@media (min-width: 1600px) {
+  .about-shell {
+    max-width: 1080px;
+  }
+}
+
+/* --------------------------------------------------------------
+   9. Reduced motion
+   -------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .exp-card,
+  .exp-card__media img {
+    animation: none !important;
+    transition: none !important;
+  }
+}

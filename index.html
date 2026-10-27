@@ -1,22 +1,1993 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
+    <!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=78f3f256-c74b-44e2-aefa-85f608b4742e
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abdullah — Software Engineer & Full-Stack Developer</title>
-    <meta name="description" content="Portfolio of Abdullah, Software Engineer & Full-Stack Developer at Aptech specializing in .NET, Laravel, React, and Flutter." />
-    <meta property="og:title" content="Abdullah — Software Engineer & Full-Stack Developer" />
-    <meta property="og:description" content="Building Secure & Scalable Web & Mobile Solutions. Specialized in .NET 8, Laravel, React, and Flutter." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="description"
+      content="Abdullah Shahid — Software Developer based in Karachi, Pakistan. Diploma in Software Engineering with a year of professional experience building secure web platforms, enterprise systems and cross-platform apps with React, Node.js, .NET and Laravel."
+    />
+    <meta name="author" content="Abdullah Shahid" />
+    <title>Abdullah | Software Developer & Full-Stack Developer</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" />
-    <link rel="icon" href="/assets/fv2-C5sXC4rQ.png"/>
-    <script type="module" crossorigin src="/assets/index-CefJE8ih.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BHlN5hUM.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Lenis smooth scroll — consistent across all systems -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <!-- GSAP for entrance animations -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <link rel="stylesheet" href="./assets/css/play.css" />
+    <link rel="stylesheet" href="./assets/css/projects.css" />
+    <link rel="stylesheet" href="./assets/css/about.css" />
+    <link rel="stylesheet" href="./assets/css/enhancements.css" />
+    <link rel="stylesheet" href="./assets/css/effects.css" />
+    <link rel="stylesheet" href="./assets/css/strings.css" />
+    <link rel="stylesheet" href="./assets/css/dock.css" />
+    <link rel="stylesheet" href="./assets/css/experience.css" />
+    <link rel="stylesheet" href="./assets/css/responsive.css" />
+
+    <!-- Theme first so there is no light→dark flash before first paint -->
+    <script src="./assets/js/theme.js"></script>
   </head>
-  <body class="bg-white text-slate-900 antialiased selection:bg-[#1B4DFF] selection:text-white min-h-screen overflow-x-clip">
-    <div id="root"></div>
+  <body>
+    <div
+      class="sidebar-backdrop"
+      id="sidebarBackdrop"
+      onclick="toggleSidebar(false)"
+    ></div>
+
+    <aside
+      class="sidebar-container w-full lg:w-[340px] flex flex-col justify-between px-6 py-8"
+      id="sidebar"
+    >
+      <div class="flex-shrink-0">
+        <div class="flex justify-between mb-8 items-start">
+          <button class="profile-avatar" aria-label="Profile Avatar">
+            <span class="profile-avatar-hover-label">img</span>
+            <span class="profile-avatar-size-pill">50 × 50</span>
+            <span class="profile-avatar-frame">
+              <span class="profile-avatar-frame__drawing">
+                <span
+                  class="profile-avatar-frame__line profile-avatar-frame__line--top"
+                ></span>
+                <span
+                  class="profile-avatar-frame__line profile-avatar-frame__line--right"
+                ></span>
+                <span
+                  class="profile-avatar-frame__line profile-avatar-frame__line--bottom"
+                ></span>
+                <span
+                  class="profile-avatar-frame__line profile-avatar-frame__line--left"
+                ></span>
+                <span
+                  class="profile-avatar-frame__corner profile-avatar-frame__corner--top-left"
+                ></span>
+                <span
+                  class="profile-avatar-frame__corner profile-avatar-frame__corner--top-right"
+                ></span>
+                <span
+                  class="profile-avatar-frame__corner profile-avatar-frame__corner--bottom-left"
+                ></span>
+                <span
+                  class="profile-avatar-frame__corner profile-avatar-frame__corner--bottom-right"
+                ></span>
+              </span>
+            </span>
+            <span class="profile-avatar__inner">
+              <span class="profile-avatar__photo block w-full h-full">
+                <img
+                  src="./assets/my/my.png"
+                  alt="Abdullah"
+                  draggable="false"
+                />
+              </span>
+            </span>
+          </button>
+
+          <div class="flex items-center gap-3" style="display: none;">
+            <div class="toggle-container mt-2" id="modeToggle">
+              <div class="toggle-slider" id="toggleSlider"></div>
+              <button class="toggle-btn active" onclick="switchMode('work')">
+                Work
+                <span class="toggle-btn-icon-reveal" aria-hidden="true">
+                  <i class="fa-solid fa-code"></i>
+                  <i class="fa-solid fa-laptop-code"></i>
+                  <i class="fa-brands fa-react"></i>
+                  <i class="fa-solid fa-terminal"></i>
+                  <i class="fa-solid fa-database"></i>
+                </span>
+              </button>
+              <!-- <button class="toggle-btn" onclick="switchMode('play')">
+                Play
+                <span class="toggle-btn-icon-reveal" aria-hidden="true">
+                  <i class="fa-solid fa-gamepad"></i>
+                  <i class="fa-solid fa-music"></i>
+                  <i class="fa-solid fa-palette"></i>
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <-- <i class="fa-solid fa-puzzle-piece"></i> --
+                </span>
+              </button> -->
+            </div>
+
+            
+            <button
+              class="mobile-menu-btn lg:hidden"
+              id="mobileMenuBtn"
+              onclick="toggleSidebar()"
+              aria-label="Open menu"
+              aria-expanded="false"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="scrollable-content overflow-y-auto"
+          style="max-height: 420px"
+        >
+          <h1
+            class="text-2xl font-bold text-gray-900 tracking-tight my-text-tilte"
+          >
+            Abdullah Shahid
+          </h1>
+          <p class="text-gray-500 mt-1 my-text-subtilte">
+            Software Developer based in Karachi.
+          </p>
+
+          <p class="text-gray-600 text-sm mt-2 leading-relaxed my-text">
+            Most developers ship features. I ship systems.
+          </p>
+          <p class="text-gray-600 text-sm mt-2 leading-relaxed my-text">
+            Software Developer with a diploma in Software Engineering and a year
+            of hands-on experience building secure web platforms, enterprise
+            systems and cross-platform mobile apps.
+          </p>
+
+          <h1
+            class="text-2xl mt-5 font-bold text-gray-900 tracking-tight my-text-tilte mb-3"
+          >
+            Skills
+          </h1>
+
+          <div
+            class="skills-slider mb-4"
+            aria-label="Skills slider"
+            role="list"
+          >
+            <div class="skills-slider-track">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                HTML
+                <i class="fa-brands fa-html5"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Css
+                <i class="fa-brands fa-css3"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Javascript
+                <i class="fa-brands fa-js"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Bootstrap
+                <i class="fa-brands fa-bootstrap"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Tailwind Css
+                <i class="fa-brands fa-tailwind-css"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                React.js
+                <i class="fa-brands fa-react"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Angular.js
+                <i class="fa-brands fa-angular"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                php
+                <i class="fa-brands fa-php"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Laravel
+                <i class="fa-brands fa-laravel"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                MySQL &amp; SQL
+                <i class="fa-solid fa-database"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                RESTful API
+                <i class="fa-solid fa-network-wired"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Python
+                <i class="fa-brands fa-python"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Dart
+                <i class="fa-brands fa-dart-lang"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Flutter
+                <i class="fa-brands fa-flutter"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Node.js
+                <i class="fa-brands fa-node"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                System Design
+                <i class="fa-solid fa-gears"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                LLD &amp; HLD
+                <i class="fa-solid fa-cubes"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Docker
+                <i class="fa-brands fa-docker"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Kubernetes
+                <i class="fa-brands fa-kubernetes"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Visual Studio
+                <i class="fa-brands fa-visual-studio"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Git
+                <i class="fa-brands fa-git-alt"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                GitHub
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+              >
+                Figma
+                <i class="fa-brands fa-figma"></i>
+              </a>
+              <span class="contact-dot">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                HTML
+                <i class="fa-brands fa-html5"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Css
+                <i class="fa-brands fa-css3"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Javascript
+                <i class="fa-brands fa-js"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Bootstrap
+                <i class="fa-brands fa-bootstrap"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Tailwind Css
+                <i class="fa-brands fa-tailwind-css"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                React.js
+                <i class="fa-brands fa-react"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Angular.js
+                <i class="fa-brands fa-angular"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                php
+                <i class="fa-brands fa-php"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Laravel
+                <i class="fa-brands fa-laravel"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                MySQL &amp; SQL
+                <i class="fa-solid fa-database"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                RESTful API
+                <i class="fa-solid fa-network-wired"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Python
+                <i class="fa-brands fa-python"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Dart
+                <i class="fa-brands fa-dart-lang"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Flutter
+                <i class="fa-brands fa-flutter"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Node.js
+                <i class="fa-brands fa-node"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                System Design
+                <i class="fa-solid fa-gears"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                LLD &amp; HLD
+                <i class="fa-solid fa-cubes"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Docker
+                <i class="fa-brands fa-docker"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Kubernetes
+                <i class="fa-brands fa-kubernetes"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Visual Studio
+                <i class="fa-brands fa-visual-studio"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Git
+                <i class="fa-brands fa-git-alt"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                GitHub
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                class="my-contact-li skills-text"
+                role="listitem"
+                aria-hidden="true"
+              >
+                Figma
+                <i class="fa-brands fa-figma"></i>
+              </a>
+              <span class="contact-dot" aria-hidden="true">·</span>
+            </div>
+          </div>
+        </div>
+        <div class="mb-5">
+          <h1
+            class="text-2xl mt-4 font-bold text-gray-900 tracking-tight my-text-tilte mb-3"
+          >
+            Education
+          </h1>
+
+          <p class="text-gray-600 text-sm leading-relaxed my-text gap-1">
+            <span class="contact-dot">·</span> Diploma in Software Engineering —
+            Aptech Computer Education
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed my-text gap-1">
+            <span class="contact-dot">·</span> Continuing education, college
+            level
+          </p>
+        </div>
+
+        <div class="mb-6">
+          <h1
+            class="text-2xl mt-5 font-bold text-gray-900 tracking-tight my-text-tilte mb-3"
+          >
+            Experience
+          </h1>
+
+          <p class="text-gray-600 text-sm leading-relaxed my-text gap-1">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              class="skills-text"
+              role="listitem"
+              aria-hidden="true"
+            >
+              Novelope
+            </a>
+
+            <span class="contact-dot">·</span>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              class="skills-text"
+              role="listitem"
+              aria-hidden="true"
+            >
+              SimulationsX
+            </a>
+            <span class="contact-dot">·</span>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              class="skills-text"
+              role="listitem"
+              aria-hidden="true"
+            >
+              Surplus Pakistan
+            </a>
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed my-text gap-1">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              class="skills-text"
+              role="listitem"
+              aria-hidden="true"
+            >
+              Uplynk
+            </a>
+
+            <span class="contact-dot">·</span>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              class="skills-text"
+              role="listitem"
+              aria-hidden="true"
+            >
+              Count3
+            </a>
+            <span class="contact-dot">·</span>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              class="skills-text"
+              role="listitem"
+              aria-hidden="true"
+            >
+              Texlynk
+            </a>
+
+            <span class="contact-dot">·</span>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              class="skills-text"
+              role="listitem"
+              aria-hidden="true"
+            >
+              Ai Matterz
+            </a>
+          </p>
+        </div>
+
+        <div class="mt-4">
+          <div
+            class="my-contact-links flex flex-row flex-wrap items-center gap-2 text-sm text-gray-700"
+          >
+            <a
+              href="https://www.linkedin.com/in/abdullah-shahid-a61175336/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="my-contact-li"
+              >LinkedIn</a
+            >
+            <span class="contact-dot">·</span>
+            <a
+              href="https://github.com/abdullah2309/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="my-contact-li"
+              >Github</a
+            >
+            <span class="contact-dot">·</span>
+            <a
+              href="https://leetcode.com/u/7g1rMdnqLS/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="my-contact-li"
+              >LeetCode</a
+            >
+            <span class="contact-dot">·</span>
+            <a
+              href="assets/resume/Abdullah_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="my-contact-li"
+              >Resume</a
+            >
+            <span class="contact-dot">·</span>
+            <div class="email-copy-wrapper">
+              <a href="mailto:abdullah2309r@gmail.com" class="my-contact-li"
+                >abdullah2309r@gmail.com</a
+              >
+              <button
+                type="button"
+                class="copy-email-btn"
+                onclick="copyEmail(this)"
+                aria-label="Copy email address"
+                title="Copy email"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="8" y="8" width="13" height="13" rx="2"></rect>
+                  <path
+                    d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-container relative">
+      <div id="content-work" class="block">
+        <section
+          id="hero"
+          class="page-section page-section--active"
+          aria-label="Home — Projects"
+        >
+          <section class="projects-section" id="projects">
+            <div class="projects-grid">
+              <div
+                class="projects-row projects-row--down"
+                aria-label="Projects row 1"
+              >
+                <div class="projects-row-track">
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/hafizsaad123/Breifora_"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/bri.png"
+                          alt="Briefora"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Briefora</h3>
+                        <p class="project-card__tech">
+                          React | TypeScript | Tailwind CSS
+                        </p>
+                        <p class="project-card__desc">
+                          A SaaS platform built with React, TypeScript &
+                          Tailwind CSS for streamlined workflow and document
+                          management.
+                        </p>
+                        <span class="project-card__meta">
+                          SaaS
+                          <span class="meta-sep">|</span>
+                          2026
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/Sms-sender"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/sms.png"
+                          alt="SMS/MMS Automation Tool"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">
+                          SMS/MMS Automation Tool
+                        </h3>
+                        <p class="project-card__tech">
+                          Node.js | Android ADB | Excel/XLSX
+                        </p>
+                        <p class="project-card__desc">
+                          Node.js automation tool that sends SMS/MMS in bulk via
+                          Android ADB, reading recipient data from Excel/XLSX
+                          files.
+                        </p>
+                        <span class="project-card__meta">
+                          SaaS
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/Fix-All"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/user panel.png"
+                          alt="Fix All"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Fix All</h3>
+                        <p class="project-card__tech">
+                          C# / .NET | ASP.NET Core | SQL Server
+                        </p>
+                        <p class="project-card__desc">
+                          A C# / ASP.NET Core web application for service
+                          request management with SQL Server backend and EF Core
+                          data access.
+                        </p>
+                        <span class="project-card__meta">
+                          Web Application
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/Vehicle-Insurance-Management"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/car.png"
+                          alt="Vehicle Insurance Management"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">
+                          Vehicle Insurance Management
+                        </h3>
+                        <p class="project-card__tech">
+                          C# / .NET | ASP.NET Core | SQL Server
+                        </p>
+                        <p class="project-card__desc">
+                          A .NET insurance management system for policy
+                          registration, purchase, claims handling, and admin
+                          panel processing.
+                        </p>
+                        <span class="project-card__meta">
+                          Insurance Application
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/hafizsaad123/Breifora_"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/bri.png"
+                          alt="Briefora"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Briefora</h3>
+                        <p class="project-card__tech">
+                          React | TypeScript | Tailwind CSS
+                        </p>
+                        <p class="project-card__desc">
+                          A SaaS platform built with React, TypeScript &
+                          Tailwind CSS for streamlined workflow and document
+                          management.
+                        </p>
+                        <span class="project-card__meta">
+                          SaaS
+                          <span class="meta-sep">|</span>
+                          2026
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/Sms-sender"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/sms.png"
+                          alt="SMS/MMS Automation Tool"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">
+                          SMS/MMS Automation Tool
+                        </h3>
+                        <p class="project-card__tech">
+                          Node.js | Android ADB | Excel/XLSX
+                        </p>
+                        <p class="project-card__desc">
+                          Node.js automation tool that sends SMS/MMS in bulk via
+                          Android ADB, reading recipient data from Excel/XLSX
+                          files.
+                        </p>
+                        <span class="project-card__meta">
+                          SaaS
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/Fix-All"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/user panel.png"
+                          alt="Fix All"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Fix All</h3>
+                        <p class="project-card__tech">
+                          C# / .NET | ASP.NET Core | SQL Server
+                        </p>
+                        <p class="project-card__desc">
+                          A C# / ASP.NET Core web application for service
+                          request management with SQL Server backend and EF Core
+                          data access.
+                        </p>
+                        <span class="project-card__meta">
+                          Web Application
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/Vehicle-Insurance-Management"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/car.png"
+                          alt="Vehicle Insurance Management"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">
+                          Vehicle Insurance Management
+                        </h3>
+                        <p class="project-card__tech">
+                          C# / .NET | ASP.NET Core | SQL Server
+                        </p>
+                        <p class="project-card__desc">
+                          A .NET insurance management system for policy
+                          registration, purchase, claims handling, and admin
+                          panel processing.
+                        </p>
+                        <span class="project-card__meta">
+                          Insurance Application
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                </div>
+              </div>
+              <div
+                class="projects-row projects-row--up"
+                aria-label="Projects row 2"
+              >
+                <div class="projects-row-track">
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/EcommerceShop"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/cara.png"
+                          alt="Cara"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Cara</h3>
+                        <p class="project-card__tech">
+                          C# / .NET | ASP.NET Core | SQL Server
+                        </p>
+                        <p class="project-card__desc">
+                          An ASP.NET Core e-commerce platform with SQL Server,
+                          EF Core & Bootstrap for product browsing, cart, and
+                          checkout.
+                        </p>
+                        <span class="project-card__meta">
+                          E-commerce Platform
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/Care"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/care.png"
+                          alt="Care"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Care</h3>
+                        <p class="project-card__tech">
+                          PHP | MySQL | JavaScript | Bootstrap
+                        </p>
+                        <p class="project-card__desc">
+                          A PHP/MySQL care platform with JavaScript
+                          interactivity and Bootstrap UI for service and user
+                          management.
+                        </p>
+                        <span class="project-card__meta">
+                          Care Platform
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/GlobalWanderers"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/global .png"
+                          alt="Global Wanderers"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Global Wanderers</h3>
+                        <p class="project-card__tech">
+                          PHP | MySQL | JavaScript | Bootstrap
+                        </p>
+                        <p class="project-card__desc">
+                          A PHP/MySQL travel agency platform for tour packages,
+                          bookings, and customer management with Bootstrap
+                          frontend.
+                        </p>
+                        <span class="project-card__meta">
+                          Travel Platform
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/Jenson-Decor"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/js.png"
+                          alt="Jenson Decor"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Jenson Decor</h3>
+                        <p class="project-card__tech">
+                          HTML5 / CSS3 | JavaScript | Bootstrap
+                        </p>
+                        <p class="project-card__desc">
+                          A static e-commerce storefront built with HTML5, CSS3,
+                          JavaScript & Bootstrap for home decor product
+                          showcasing.
+                        </p>
+                        <span class="project-card__meta">
+                          E-commerce Platform
+                          <span class="meta-sep">|</span>
+                          2024
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/EcommerceShop"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/cara.png"
+                          alt="Cara"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Cara</h3>
+                        <p class="project-card__tech">
+                          C# / .NET | ASP.NET Core | SQL Server
+                        </p>
+                        <p class="project-card__desc">
+                          An ASP.NET Core e-commerce platform with SQL Server,
+                          EF Core & Bootstrap for product browsing, cart, and
+                          checkout.
+                        </p>
+                        <span class="project-card__meta">
+                          E-commerce Platform
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/Care"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/care.png"
+                          alt="Care"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Care</h3>
+                        <p class="project-card__tech">
+                          PHP | MySQL | JavaScript | Bootstrap
+                        </p>
+                        <p class="project-card__desc">
+                          A PHP/MySQL care platform with JavaScript
+                          interactivity and Bootstrap UI for service and user
+                          management.
+                        </p>
+                        <span class="project-card__meta">
+                          Care Platform
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/GlobalWanderers"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/global .png"
+                          alt="Global Wanderers"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Global Wanderers</h3>
+                        <p class="project-card__tech">
+                          PHP | MySQL | JavaScript | Bootstrap
+                        </p>
+                        <p class="project-card__desc">
+                          A PHP/MySQL travel agency platform for tour packages,
+                          bookings, and customer management with Bootstrap
+                          frontend.
+                        </p>
+                        <span class="project-card__meta">
+                          Travel Platform
+                          <span class="meta-sep">|</span>
+                          2025
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/Jenson-Decor"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/js.png"
+                          alt="Jenson Decor"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Jenson Decor</h3>
+                        <p class="project-card__tech">
+                          HTML5 / CSS3 | JavaScript | Bootstrap
+                        </p>
+                        <p class="project-card__desc">
+                          A static e-commerce storefront built with HTML5, CSS3,
+                          JavaScript & Bootstrap for home decor product
+                          showcasing.
+                        </p>
+                        <span class="project-card__meta">
+                          E-commerce Platform
+                          <span class="meta-sep">|</span>
+                          2024
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                </div>
+              </div>
+              <div
+                class="projects-row projects-row--down-2"
+                aria-label="Projects row 3"
+              >
+                <div class="projects-row-track">
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/Tic-Tac-Toe"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/t.png"
+                          alt="Tic-Tac-Toe Game"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Tic-Tac-Toe Game</h3>
+                        <p class="project-card__tech">
+                          HTML5 / CSS3 | JavaScript | Bootstrap
+                        </p>
+                        <p class="project-card__desc">
+                          A classic Tic-Tac-Toe browser game built with vanilla
+                          JavaScript, HTML5 & Bootstrap with interactive
+                          gameplay logic.
+                        </p>
+                        <span class="project-card__meta">
+                          Game
+                          <span class="meta-sep">|</span>
+                          2024
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/Dawn-News"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/dawnnews.png"
+                          alt="Clone of Dawn News"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Clone of Dawn News</h3>
+                        <p class="project-card__tech">
+                          HTML5 / CSS3 | JavaScript
+                        </p>
+                        <p class="project-card__desc">
+                          A pixel-accurate front-end clone of the Dawn News
+                          website built with HTML5, CSS3 & JavaScript for layout
+                          practice.
+                        </p>
+                        <span class="project-card__meta">
+                          Clone Website
+                          <span class="meta-sep">|</span>
+                          2024
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card">
+                    <a
+                      href="https://github.com/abdullah2309/Bootstrap-Clone"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/Bootstrap .png"
+                          alt="Clone of Bootstrap"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Clone of Bootstrap</h3>
+                        <p class="project-card__tech">
+                          HTML5 / CSS3 | JavaScript
+                        </p>
+                        <p class="project-card__desc">
+                          A front-end recreation of the Bootstrap website using
+                          HTML5, CSS3 & JavaScript to practice responsive
+                          layouts.
+                        </p>
+                        <span class="project-card__meta">
+                          Clone Website
+                          <span class="meta-sep">|</span>
+                          2024
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/Tic-Tac-Toe"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/t.png"
+                          alt="Tic-Tac-Toe Game"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Tic-Tac-Toe Game</h3>
+                        <p class="project-card__tech">
+                          HTML5 / CSS3 | JavaScript | Bootstrap
+                        </p>
+                        <p class="project-card__desc">
+                          A classic Tic-Tac-Toe browser game built with vanilla
+                          JavaScript, HTML5 & Bootstrap with interactive
+                          gameplay logic.
+                        </p>
+                        <span class="project-card__meta">
+                          Game
+                          <span class="meta-sep">|</span>
+                          2024
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/Dawn-News"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/dawnnews.png"
+                          alt="Clone of Dawn News"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Clone of Dawn News</h3>
+                        <p class="project-card__tech">
+                          HTML5 / CSS3 | JavaScript
+                        </p>
+                        <p class="project-card__desc">
+                          A pixel-accurate front-end clone of the Dawn News
+                          website built with HTML5, CSS3 & JavaScript for layout
+                          practice.
+                        </p>
+                        <span class="project-card__meta">
+                          Clone Website
+                          <span class="meta-sep">|</span>
+                          2024
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                  <article class="project-card" aria-hidden="true">
+                    <a
+                      href="https://github.com/abdullah2309/Bootstrap-Clone"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="project-card__link"
+                    >
+                      <div class="project-card__media">
+                        <img
+                          src="images/my-projects/Bootstrap .png"
+                          alt="Clone of Bootstrap"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div class="project-card__body">
+                        <h3 class="project-card__title">Clone of Bootstrap</h3>
+                        <p class="project-card__tech">
+                          HTML5 / CSS3 | JavaScript
+                        </p>
+                        <p class="project-card__desc">
+                          A front-end recreation of the Bootstrap website using
+                          HTML5, CSS3 & JavaScript to practice responsive
+                          layouts.
+                        </p>
+                        <span class="project-card__meta">
+                          Clone Website
+                          <span class="meta-sep">|</span>
+                          2024
+                        </span>
+                      </div>
+                    </a>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section
+          id="about"
+          class="page-section page-section--scrollable bg-[#ffffff] px-10"
+          aria-label="About & Academics"
+        >
+          <div class="about-shell">
+            <p
+              class="hover-p fx-headline-lock text-gray-600 mt-10 mb-4 leading-relaxed my-text-tilte2-main"
+            >
+          <span class="my-text-tilte2" id="headlineText">
+  I'm a
+  <span class="se-highlight">Software Engineer</span>
+  with a diploma in Software Engineering and a year of professional experience — designing scalable applications, secure APIs, and enterprise systems built for real-world impact.
+</span>
+
+              <svg
+                class="hover-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+
+              <span class="hover-badge">Developer</span>
+            </p>
+
+            <p class="text-gray-600 text-sm mt-2 leading-relaxed my-text">
+              Software Engineer based in Karachi, Pakistan, with a Diploma in
+              Software Engineering and 1+ year of professional experience. I
+              build end-to-end software solutions across React, .NET, Laravel,
+              and Node.js, combining clean architecture, secure APIs, and
+              thoughtful database design to solve real-world problems.
+            </p>
+
+                     <p class="text-gray-600 text-sm mt-2 leading-relaxed my-text">
+              I believe
+              great software starts before the first line of code — with clear
+              requirements, well-planned system architecture, and engineering
+              decisions built to last. From database design to polished user
+              interfaces, I focus on building reliable, maintainable, and
+              scalable applications that deliver real value.
+            </p>
+            <!-- ===== Skills network — drag a tag and the whole net tugs ===== -->
+            <section class="strings" aria-label="Skills network">
+              <div class="strings__stage" id="stringsStage">
+                <svg
+                  class="strings__svg"
+                  id="stringsSvg"
+                  aria-hidden="true"
+                ></svg>
+                <div class="strings__layer" id="stringsLayer"></div>
+                <div
+                  class="strings__cursor"
+                  id="stringsCursor"
+                  aria-hidden="true"
+                ></div>
+              </div>
+
+              <!-- <p class="strings__hint">
+                <i class="fa-solid fa-hand-pointer" aria-hidden="true"></i>
+                Drag a tag — every string tugs the whole network
+              </p> -->
+            </section>
+
+            <div class="about-experience">
+              <div class="about-section-header_ mb-3">
+                <!-- <h2 class="about-section-header__tie">Experience</h2> -->
+                <h1
+                  class="text-2xl font-bold text-gray-900 tracking-tight my-text-tilte"
+                >
+                  Experience
+                </h1>
+              </div>
+
+              <section class="experience-section" aria-label="Work experience">
+                <div class="exp-grid">
+                  <article class="exp-card">
+                    <div class="exp-card__logo">
+                      <img
+                        src="assets/experience/novelope.png"
+                        alt="Novelope Pakistan"
+                        loading="lazy"
+                      />
+                    </div>
+                    <h3 class="exp-card__title">Software Developer Intern</h3>
+                    <a
+                      class="exp-card__company"
+                      href="https://novelops.com.pk/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Novelope Pakistan</a
+                    >
+                    <span class="exp-card__date">
+                      <i
+                        class="fa-solid fa-calendar-days"
+                        aria-hidden="true"
+                      ></i>
+                      Sep 2025 – Present
+                    </span>
+                  </article>
+
+                  <article class="exp-card">
+                    <div class="exp-card__logo">
+                      <img
+                        src="assets/experience/simx.webp"
+                        alt="SimulationsX"
+                        loading="lazy"
+                      />
+                    </div>
+                    <h3 class="exp-card__title">Full Stack Developer</h3>
+                    <a
+                      class="exp-card__company"
+                      href="http://games.simulationsx.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >SimulationsX</a
+                    >
+                    <span class="exp-card__date">
+                      <i
+                        class="fa-solid fa-calendar-days"
+                        aria-hidden="true"
+                      ></i>
+                      Dec 2025 – Present
+                    </span>
+                  </article>
+
+                  <article class="exp-card">
+                    <div class="exp-card__logo">
+                      <img
+                        src="assets/experience/surplus.webp"
+                        alt="Surplus Pakistan"
+                        loading="lazy"
+                      />
+                    </div>
+                    <h3 class="exp-card__title">PHP Laravel Developer</h3>
+                    <a
+                      class="exp-card__company"
+                      href="https://surplus.com.pk"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Surplus Pakistan</a
+                    >
+                    <span class="exp-card__date">
+                      <i
+                        class="fa-solid fa-calendar-days"
+                        aria-hidden="true"
+                      ></i>
+                      Mar 2026 – Present
+                    </span>
+                  </article>
+
+                  <article class="exp-card">
+                    <div class="exp-card__logo">
+                      <img
+                        src="assets/experience/count3.png"
+                        alt="Count3"
+                        loading="lazy"
+                      />
+                    </div>
+                    <h3 class="exp-card__title">Software Developer</h3>
+                    <a
+                      class="exp-card__company"
+                      href="https://count3.pk"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Count3</a
+                    >
+                    <span class="exp-card__date">
+                      <i
+                        class="fa-solid fa-calendar-days"
+                        aria-hidden="true"
+                      ></i>
+                      May 2026 – Present
+                    </span>
+                  </article>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div
+        id="content-play"
+        class="hidden min-h-screen flex flex-col items-center justify-center p-6 text-center"
+      >
+        <div class="play-grid">
+        <div class="play-shell">
+          <div class="play-header">
+            <span class="play-eyebrow">// memory sequence</span>
+            <h2 class="play-title">
+              Echo<span style="color: var(--primary-blue)">.</span>
+            </h2>
+            <p class="play-subtitle">
+              Watch the pattern, then echo it back. Each round adds one more
+              step. How long can you keep up?
+            </p>
+          </div>
+          <div class="game-stage" id="gameStage">
+            <div class="game-flash" id="gameFlash"></div>
+            <div class="game-statusbar">
+              <div class="game-stat">
+                <span class="game-stat-label">Round</span
+                ><span class="game-stat-value" id="gameRound">0</span>
+              </div>
+              <div class="game-status-text" id="gameStatus">Press Start</div>
+              <div class="game-stat">
+                <span class="game-stat-label">Best</span
+                ><span class="game-stat-value" id="gameBest">0</span>
+              </div>
+            </div>
+            <div class="pads-grid" id="padsGrid">
+              <div
+                class="pad pad--green"
+                data-color="0"
+                aria-label="Green pad"
+              ></div>
+              <div
+                class="pad pad--red"
+                data-color="1"
+                aria-label="Red pad"
+              ></div>
+              <div
+                class="pad pad--yellow"
+                data-color="2"
+                aria-label="Yellow pad"
+              ></div>
+              <div
+                class="pad pad--blue"
+                data-color="3"
+                aria-label="Blue pad"
+              ></div>
+              <div class="round-indicator">
+                <span class="ri-label">Round</span
+                ><span class="ri-value" id="roundIndicator">0</span>
+              </div>
+            </div>
+            <div class="game-controls">
+              <button class="game-btn" id="gameStartBtn" onclick="gameStart()">
+                <i class="fa-solid fa-play"></i><span>Start</span>
+              </button>
+              <button
+                class="game-btn game-btn--ghost"
+                id="gameResetBtn"
+                onclick="gameReset()"
+              >
+                <i class="fa-solid fa-rotate-right"></i><span>Reset</span>
+              </button>
+              <button
+                class="game-btn game-btn--ghost"
+                id="gameSoundBtn"
+                onclick="gameToggleSound()"
+                title="Toggle sound"
+              >
+                <i class="fa-solid fa-volume-high" id="gameSoundIcon"></i
+                ><span id="gameSoundLabel">Sound</span>
+              </button>
+            </div>
+            <p class="game-howto">
+              <strong>How to play:</strong> Watch the pads light up in sequence,
+              then click them back in the same order. One new step is added each
+              round. Make a mistake and the game ends.
+            </p>
+          </div>
+        </div>
+
+        <!-- ===== Predict — a "guess the output" code teaser ===== -->
+        <div class="play-shell">
+          <div class="play-header">
+            <span class="play-eyebrow">// code teasers</span>
+            <h2 class="play-title">
+              Predict<span style="color: var(--primary-blue)">.</span>
+            </h2>
+            <p class="play-subtitle">
+              Eight snippets that trip up even seasoned developers. Read the
+              code, commit to an answer, then see what the engine really does.
+            </p>
+          </div>
+          <div class="game-stage" id="teaserStage">
+            <div class="game-statusbar">
+              <div class="game-stat">
+                <span class="game-stat-label">Score</span
+                ><span class="game-stat-value" id="teaserScore">0</span>
+              </div>
+              <div class="game-status-text" id="teaserStatus">
+                Question 1 / 8
+              </div>
+              <div class="game-stat">
+                <span class="game-stat-label">Best</span
+                ><span class="game-stat-value" id="teaserBest">0</span>
+              </div>
+            </div>
+
+            <div class="teaser-meta" id="teaserMeta">
+              <span class="teaser-level" id="teaserLevel">Warm-up</span>
+              <span class="teaser-topic" id="teaserTopic">typeof quirk</span>
+            </div>
+
+            <pre class="teaser-code" id="teaserCodeWrap"><code id="teaserCode"></code></pre>
+
+            <div
+              class="teaser-options"
+              id="teaserOptions"
+              role="group"
+              aria-label="Possible outputs"
+            ></div>
+
+            <p class="teaser-explain" id="teaserExplain" hidden></p>
+
+            <div class="teaser-result" id="teaserResult" hidden>
+              <span class="teaser-result__label">Final score</span>
+              <span class="teaser-result__score" id="teaserFinal">0/8</span>
+              <p class="teaser-result__msg" id="teaserMsg"></p>
+            </div>
+
+            <div class="game-controls">
+              <button
+                class="game-btn"
+                id="teaserNextBtn"
+                disabled
+                onclick="teaserNext()"
+              >
+                <i class="fa-solid fa-arrow-right"></i
+                ><span id="teaserNextLabel">Next</span>
+              </button>
+              <button
+                class="game-btn game-btn--ghost"
+                onclick="teaserRestart()"
+                id="teaserRestartBtn"
+              >
+                <i class="fa-solid fa-rotate-right"></i><span>Restart</span>
+              </button>
+            </div>
+            <p class="game-howto">
+              <strong>How it works:</strong> one snippet, four possible
+              outputs — exactly one is right. Pick with a click or the keys
+              1–4, and the explanation unlocks after your choice.
+            </p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ============================================================== -->
+    <!-- CENTER-BOTTOM FLOATING NAV TAB — "Home | About"               -->
+    <!-- Sits fixed at the bottom-center of the viewport, visible on   -->
+    <!-- every section. Routes to the same showSection() the sidebar   -->
+    <!-- uses, so behaviour is identical everywhere.                   -->
+    <!-- ============================================================== -->
+    <nav class="dock-nav" role="navigation" aria-label="Primary">
+      <button
+        type="button"
+        class="dock-nav__btn is-active"
+        data-target="hero"
+        aria-label="Home"
+        aria-current="page"
+      >
+        <i class="fa-solid fa-house" aria-hidden="true"></i>
+        <span class="dock-nav__label">Home</span>
+      </button>
+      <span class="dock-nav__sep" aria-hidden="true"></span>
+      <button
+        type="button"
+        class="dock-nav__btn"
+        data-target="about"
+        aria-label="About"
+      >
+        <i class="fa-solid fa-user" aria-hidden="true"></i>
+        <span class="dock-nav__label">About</span>
+      </button>
+      <span class="dock-nav__sep" aria-hidden="true"></span>
+      <a
+        class="dock-nav__btn dock-nav__resume"
+        href="./assets/resume/Abdullah_Resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Resume"
+        title="Resume"
+      >
+        <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
+        <span class="dock-nav__label">Resume</span>
+      </a>
+    </nav>
+
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/sidebar.js"></script>
+    <script src="./assets/js/game.js"></script>
+    <script src="./assets/js/teaser.js"></script>
+    <script src="./assets/js/sections.js"></script>
+    <script src="./assets/js/about.js"></script>
+    <script src="./assets/js/strings.js"></script>
+    <script src="./assets/js/smooth-scroll.js"></script>
+    <script src="./assets/js/dock.js"></script>
   </body>
 </html>

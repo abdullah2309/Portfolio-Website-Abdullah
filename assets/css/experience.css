@@ -1,0 +1,203 @@
+/* ==============================================================
+   experience.css — "Experience" cards in the About tab
+
+   Card layout (compact, centred):
+        ┌───────────────┐
+        │   ( logo )    │  ← round company logo
+        │   Job title   │
+        │  Company name │
+        │ 2025–Present  │
+        └───────────────┘
+   Nothing else lives inside the card.
+   4 → 3 → 2 cards per row, fully responsive.
+   ============================================================== */
+
+.experience-section {
+  position: relative;
+  width: 100%;
+  padding: 4px 0 0;
+}
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+
+.exp-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+  padding: 16px 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+[data-theme="dark"] .exp-card:hover {
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* --- round company logo --- */
+.exp-card__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 10px;
+  padding: 7px;
+  border-radius: 50%;
+  background: #f4f6fa;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.3s ease;
+}
+[data-theme="dark"] .exp-card__logo {
+  background: #eef1f7;
+}
+.exp-card:hover .exp-card__logo {
+  transform: scale(1.06);
+  border: 1px solid var(--primary-blue);
+}
+.exp-card__logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* --- job title --- */
+.exp-card__title {
+  margin: 0;
+  max-width: 100%;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.2px;
+  color: var(--text-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- company name --- */
+.exp-card__company {
+  margin-top: 3px;
+  max-width: 100%;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-muted);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+.exp-card__company:hover,
+.exp-card__company:focus-visible {
+  color: var(--primary-blue);
+}
+
+/* --- duration (from → to, ends with Present) --- */
+.exp-card__date {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+  margin-top: 9px;
+  padding: 4px 9px;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  background: var(--bg-card-alt);
+  color: #111111;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.exp-card__date i {
+  font-size: 9px;
+}
+
+/* --- entrance (only when motion is allowed) --- */
+@media (prefers-reduced-motion: no-preference) {
+  .exp-card {
+    animation: expCardIn 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    animation-delay: calc(var(--d, 0) * 70ms);
+  }
+  .exp-card:nth-child(2) {
+    --d: 1;
+  }
+  .exp-card:nth-child(3) {
+    --d: 2;
+  }
+  .exp-card:nth-child(4) {
+    --d: 3;
+  }
+}
+@keyframes expCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================== */
+/* RESPONSIVE — 4 → 3 → 2 → 1 small cards per row                */
+/* ============================================================== */
+@media (max-width: 1100px) {
+  .exp-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 900px) {
+  .exp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+@media (max-width: 560px) {
+  .exp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .exp-card {
+    padding: 13px 9px 12px;
+  }
+  .exp-card__logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 8px;
+    padding: 6px;
+  }
+  .exp-card__title {
+    font-size: 12px;
+  }
+  .exp-card__company {
+    font-size: 11px;
+  }
+}
+@media (max-width: 380px) {
+  .exp-grid {
+    grid-template-columns: 1fr;
+  }
+}

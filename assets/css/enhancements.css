@@ -1,0 +1,741 @@
+
+/* ===== enhancements (scroll text, About card art, easter eggs) ===== */
+/* enhancements.css — add-on layer. Uses only the existing theme variables. */
+
+/* 1. Scroll-driven headline (line-by-line color wipe) ----------------- */
+/* Behaviour:
+   - The headline paragraph is broken into line boxes (by JS) so each
+     visual line gets its own gradient-fill animation.
+   - While the headline is in view and we're at the top of #about, user
+     scroll is "captured" — the page does NOT scroll. Instead, each
+     scroll tick advances --scroll-fill from 0 to 1 LINE BY LINE:
+ Line 1 fills first (its color goes gray → dark blue),
+ then Line 2 starts,
+ then Line 3, etc.
+   - When the LAST line reaches --scroll-fill = 1, the scroll lock is
+     released and the page begins to scroll normally.
+   - The hover behaviour on the headline still works: hovering the
+     paragraph fills every line with dark blue at once.
+   - The .se-highlight span keeps its icon-reveal hover behaviour. */
+.fx-word {
+  color: inherit;
+}
+
+/* Container that holds the wrapped lines (each line is a .hl-line span). */
+#about .hover-p .my-text-tilte2.fx-scrolltext-ready {
+  /* Make this a block so its inline children (.hl-line) can wrap onto
+     separate visual lines without affecting layout outside the span. */
+  display: inline-block;
+  /* Transparent fill — the gradient shows through via background-clip:text */
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+#about .hover-p .my-text-tilte2.fx-scrolltext-ready .hl-line {
+  display: block; /* each line on its own row */
+  white-space: normal;
+  /* Two-stop gradient per line — dark blue (left, scrolled portion) +
+     default text color (right, unscrolled portion). The middle stops
+     slide based on the per-line --line-fill (0..1), producing a
+     left-to-right color wipe that completes line-by-line. */
+  background-image: linear-gradient(
+    to right,
+    #1d4ed8 0%,
+    #1d4ed8 calc(var(--line-fill, 0) * 100%),
+    var(--text-muted, #555555) calc(var(--line-fill, 0) * 100%),
+    var(--text-muted, #555555) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transition: background-image 0.05s linear;
+  line-height: 1.5;
+}
+/* On hover of the parent .my-text-tilte2, fill every line at once. */
+#about .hover-p .my-text-tilte2.fx-scrolltext-ready:hover .hl-line {
+  background-image: linear-gradient(
+    to right,
+    #1d4ed8,
+    #1d4ed8
+  ) !important;
+}
+/* Dark theme fallback uses theme variables for the "default" gray end. */
+[data-theme="dark"]
+  #about
+  .hover-p
+  .my-text-tilte2.fx-scrolltext-ready
+  .hl-line {
+  background-image: linear-gradient(
+    to right,
+    var(--primary-blue) 0%,
+    var(--primary-blue) calc(var(--line-fill, 0) * 100%),
+    var(--text-muted, #7a7f8c) calc(var(--line-fill, 0) * 100%),
+    var(--text-muted, #7a7f8c) 100%
+  );
+}
+[data-theme="dark"]
+  #about
+  .hover-p
+  .my-text-tilte2.fx-scrolltext-ready:hover
+  .hl-line {
+  background-image: linear-gradient(
+    to right,
+    var(--primary-blue),
+    var(--primary-blue)
+  ) !important;
+}
+
+/* 3. About cards: art, entrance, hover ---------------------------------- */
+.about-card .fx-art {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border-light);
+}
+.fx-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    110px circle at calc(50% + var(--mx, 0) * 50%)
+      calc(50% + var(--my, 0) * 50%),
+    color-mix(in srgb, var(--primary-blue) 14%, transparent),
+    transparent
+  );
+}
+.about-card:hover .fx-art::after {
+  opacity: 1;
+}
+.fx-art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  translate: calc(var(--mx, 0) * -5px) calc(var(--my, 0) * -3px);
+  transition:
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    translate 0.25s ease-out;
+}
+.about-card:hover .fx-art svg {
+  transform: scale(1.05);
+}
+
+.fx-g {
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.fx-art .l {
+  fill: none;
+  stroke: var(--border-soft);
+  stroke-width: 1;
+}
+.fx-art .grid {
+  stroke: var(--border-light);
+  stroke-width: 0.6;
+}
+.fx-art .box {
+  fill: var(--bg-card);
+  stroke: var(--text-muted);
+  stroke-width: 1.2;
+  transition:
+    stroke 0.3s ease,
+    stroke-width 0.3s ease;
+}
+.fx-art .hi {
+  stroke: var(--primary-blue);
+}
+.fx-art .wire {
+  fill: none;
+  stroke: var(--primary-blue);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+  opacity: 0.7;
+}
+.fx-art text {
+  font-family: "Space Mono", monospace;
+  font-size: 10px;
+  fill: var(--text-muted);
+}
+.fx-art .t-hi {
+  fill: var(--primary-blue);
+}
+.fx-art .dot {
+  fill: var(--border-soft);
+  transition: fill 0.3s ease;
+}
+.fx-art .hi-dot {
+  fill: var(--primary-blue);
+}
+.fx-art .pk {
+  fill: var(--primary-blue);
+  opacity: 0;
+}
+.fx-art .shield {
+  fill: var(--bg-card);
+  stroke: var(--primary-blue);
+  stroke-width: 2;
+}
+.fx-art .ring {
+  fill: none;
+  stroke: var(--primary-blue);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-origin: 160px 90px;
+}
+.fx-art .scan {
+  fill: var(--primary-blue);
+  opacity: 0.12;
+}
+.fx-art .tick {
+  fill: none;
+  stroke: var(--primary-blue);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 110;
+  stroke-dashoffset: 0;
+}
+
+/* ambient (only once the card is in view) */
+.about-card.fx-in .fx-art .wire {
+  animation: fxDash 2.4s linear infinite;
+}
+.about-card.fx-in .fx-art .scan {
+  animation: fxScan 3.6s ease-in-out infinite;
+}
+@keyframes fxDash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+@keyframes fxScan {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(124px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* hover */
+.about-card:hover .fx-art .box {
+  stroke: var(--primary-blue);
+}
+.about-card:hover .fx-art .hi {
+  stroke-width: 2;
+}
+.about-card:hover .fx-art .wire {
+  animation-duration: 0.9s;
+}
+.about-card:hover .fx-l1 {
+  transform: translateY(-5px);
+}
+.about-card:hover .fx-l2 {
+  transform: translateY(-5px);
+  transition-delay: 0.06s;
+}
+.about-card:hover .fx-l3 {
+  transform: translateY(-5px);
+  transition-delay: 0.12s;
+}
+.about-card:hover .fx-s1 {
+  transform: translateY(-6px);
+}
+.about-card:hover .fx-s3 {
+  transform: translateY(6px);
+}
+.about-card:hover .fx-c1,
+.about-card:hover .fx-c2,
+.about-card:hover .fx-c3,
+.about-card:hover .fx-c4 {
+  transform: translateY(-4px);
+}
+.about-card:hover .fx-c2 {
+  transition-delay: 0.05s;
+}
+.about-card:hover .fx-c3 {
+  transition-delay: 0.1s;
+}
+.about-card:hover .fx-c4 {
+  transition-delay: 0.15s;
+}
+.about-card:hover .fx-art .dot {
+  animation: fxBlink 1.2s ease-in-out infinite;
+}
+.about-card:hover .fx-art .tick {
+  animation: fxDraw 0.9s ease forwards;
+}
+.about-card:hover .fx-art .ring {
+  animation: fxRing 1.4s ease-out infinite;
+}
+.about-card:hover .fx-art .pk-l {
+  animation: fxPkL 1.7s ease-in-out infinite;
+}
+.about-card:hover .fx-art .pk-m {
+  animation: fxPkM 1.7s ease-in-out 0.25s infinite;
+}
+.about-card:hover .fx-art .pk-r {
+  animation: fxPkR 1.7s ease-in-out 0.5s infinite;
+}
+@keyframes fxBlink {
+  0%,
+  100% {
+    fill: var(--border-soft);
+  }
+  50% {
+    fill: var(--primary-blue);
+  }
+}
+@keyframes fxDraw {
+  from {
+    stroke-dashoffset: 110;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes fxRing {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+}
+@keyframes fxPkL {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    transform: translate(0, 18px);
+  }
+  70% {
+    transform: translate(-100px, 18px);
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-100px, 38px);
+  }
+}
+@keyframes fxPkM {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  15% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 38px);
+  }
+}
+@keyframes fxPkR {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  10% {
+    opacity: 1;
+  }
+  30% {
+    transform: translate(0, 18px);
+  }
+  70% {
+    transform: translate(100px, 18px);
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100px, 38px);
+  }
+}
+
+/* entrance — armed only when JS has run */
+.about-card.fx-pre {
+  opacity: 0;
+  translate: 0 16px;
+}
+.about-card.fx-pre,
+.about-card.fx-in {
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.7s ease var(--d, 0ms),
+    translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms);
+}
+.about-card.fx-in {
+  opacity: 1;
+  translate: 0 0;
+}
+.about-card.fx-pre .fx-art {
+  clip-path: inset(0 100% 0 0 round 8px);
+}
+.about-card.fx-in .fx-art {
+  clip-path: inset(0 0 0 0 round 8px);
+  transition: clip-path 0.9s cubic-bezier(0.2, 0.7, 0.2, 1)
+    calc(var(--d, 0ms) + 120ms);
+}
+.about-card.fx-pre .d {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.about-card.fx-in .d {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition:
+    stroke-dashoffset 1.2s ease calc(var(--d, 0ms) + 350ms),
+    stroke 0.3s ease,
+    stroke-width 0.3s ease;
+}
+.about-card.fx-pre .about-card__icon,
+.about-card.fx-pre .about-card__title,
+.about-card.fx-pre .about-card__text {
+  opacity: 0;
+  translate: 0 8px;
+}
+.about-card.fx-in .about-card__icon,
+.about-card.fx-in .about-card__title,
+.about-card.fx-in .about-card__text {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.5s ease,
+    translate 0.5s ease;
+}
+.about-card.fx-in .about-card__icon {
+  transition-delay: calc(var(--d, 0ms) + 450ms);
+}
+.about-card.fx-in .about-card__title {
+  transition-delay: calc(var(--d, 0ms) + 550ms);
+}
+.about-card.fx-in .about-card__text {
+  transition-delay: calc(var(--d, 0ms) + 650ms);
+}
+
+/* 4. Experience: scroll-linked timeline -------------------------------- */
+/* .fx-line {
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  width: 2px;
+  height: calc((100% - 16px) * var(--lp, 0));
+  background: var(--primary-blue);
+  border-radius: 2px;
+  z-index: 1;
+  pointer-events: none;
+}
+.fx-line::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--primary-blue);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-blue) 18%, transparent);
+} */
+.experience-list.fx-armed .experience-item {
+  opacity: calc(0.5 + 0.5 * var(--f, 1));
+}
+/* nodes wake up as the line reaches them */
+/* .experience-list.fx-armed .experience-item::before { border-color: var(--border-soft); } */
+/* .experience-list.fx-armed .experience-item::after { background: var(--border-soft); } */
+.experience-list.fx-armed .experience-item.fx-on::before {
+  border-color: var(--primary-blue);
+}
+.experience-list.fx-armed .experience-item.fx-on::after {
+  background: var(--primary-blue);
+}
+/* reveal */
+.experience-list.fx-armed .experience-item .experience-header {
+  opacity: 0;
+  translate: -26px 0;
+}
+.experience-list.fx-armed .experience-item .experience-content {
+  clip-path: inset(0 -30px 100% -30px);
+}
+.experience-list.fx-armed .experience-item .experience-logo {
+  opacity: 0;
+  scale: 0.6;
+  rotate: -14deg;
+}
+.experience-list.fx-armed .experience-item .experience-date {
+  opacity: 0;
+  scale: 0.8;
+}
+.experience-list.fx-armed .experience-item .experience-content li {
+  opacity: 0;
+  translate: -14px 0;
+}
+
+.experience-list.fx-armed .experience-item.fx-xin .experience-header {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.6s ease,
+    translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.experience-list.fx-armed .experience-item.fx-xin .experience-content {
+  clip-path: inset(0 -30px -30px -30px);
+  transition:
+    clip-path 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s,
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.experience-list.fx-armed .experience-item.fx-xin .experience-logo {
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+  transition:
+    opacity 0.5s ease 0.15s,
+    scale 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) 0.15s,
+    rotate 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) 0.15s,
+    background-color 0.4s ease,
+    border-color 0.4s ease;
+}
+.experience-list.fx-armed .experience-item.fx-xin .experience-date {
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity 0.4s ease 0.4s,
+    scale 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) 0.4s,
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    color 0.4s ease;
+}
+.experience-list.fx-armed .experience-item.fx-xin .experience-content li {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.5s ease calc(0.5s + var(--i, 0) * 80ms),
+    translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1)
+      calc(0.5s + var(--i, 0) * 80ms),
+    color 0.4s ease;
+}
+
+/* 2. Easter eggs ------------------------------------------------------- */
+.about-skill-chip[data-tip] {
+  position: relative;
+}
+@media (hover: hover) {
+  .about-skill-chip[data-tip]::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translate(-50%, 4px);
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--text-dark);
+    color: var(--bg-white);
+    font:
+      11px "Space Mono",
+      monospace;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+    z-index: 20;
+  }
+  .about-skill-chip[data-tip]:hover::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.fx-toast {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  max-width: min(340px, calc(100vw - 36px));
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-card);
+  color: var(--text-dark);
+  border: 1px solid var(--primary-blue);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  font:
+    12px/1.5 "Space Mono",
+    monospace;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  z-index: 9998;
+  white-space: pre-line;
+}
+.fx-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fx-glyph {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9997;
+  pointer-events: none;
+  color: var(--primary-blue);
+  font:
+    700 14px "Space Mono",
+    monospace;
+  animation: fxFly 1.3s ease-out forwards;
+}
+@keyframes fxFly {
+  from {
+    transform: translate(var(--x), var(--y));
+    opacity: 1;
+  }
+  to {
+    transform: translate(
+      calc(var(--x) + var(--dx)),
+      calc(var(--y) + var(--dy))
+    );
+    opacity: 0;
+  }
+}
+
+.fx-term {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(620px, calc(100vw - 24px));
+  height: min(340px, 60vh);
+  display: none;
+  flex-direction: column;
+  background: var(--bg-card);
+  color: var(--text-dark);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  font:
+    12px/1.6 "Space Mono",
+    monospace;
+  z-index: 9999;
+  overflow: hidden;
+}
+.fx-term.open {
+  display: flex;
+}
+.fx-term__bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-card-alt);
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+.fx-term__out {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.fx-term__out .dim {
+  color: var(--text-muted);
+}
+.fx-term__out .hl {
+  color: var(--primary-blue);
+}
+.fx-term__row {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border-light);
+}
+.fx-term__row span {
+  color: var(--primary-blue);
+}
+.fx-term__in {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--text-dark);
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-card.fx-pre,
+  .about-card.fx-in {
+    transition: none;
+    opacity: 1;
+    translate: none;
+  }
+  .fx-art svg,
+  .fx-art .box,
+  .fx-toast {
+    transition: none;
+  }
+  .about-card:hover .fx-art svg {
+    transform: none;
+  }
+  .about-card:hover .fx-art .wire,
+  .about-card:hover .fx-art .tick {
+    animation: none;
+  }
+  .about-card:hover .fx-s1,
+  .about-card:hover .fx-s3 {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-art svg {
+    translate: none;
+  }
+  .fx-art .pk,
+  .fx-art .scan,
+  .fx-art .ring,
+  .fx-art .dot,
+  .fx-art .wire {
+    animation: none !important;
+  }
+  .about-card:hover .fx-l1,
+  .about-card:hover .fx-l2,
+  .about-card:hover .fx-l3,
+  .about-card:hover .fx-c1,
+  .about-card:hover .fx-c2,
+  .about-card:hover .fx-c3,
+  .about-card:hover .fx-c4 {
+    transform: none;
+  }
+}
+

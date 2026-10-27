@@ -1,0 +1,203 @@
+
+.projects-section {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  padding: 20px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.projects-section .projects-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.projects-section .projects-header h1,
+.projects-section .projects-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+.projects-section .projects-header .projects-hint {
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.projects-row {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  min-height: 0;
+}
+.projects-row-track {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.projects-row--down .projects-row-track {
+  animation: projDown 38s linear infinite;
+}
+.projects-row--up .projects-row-track {
+  animation: projUp 38s linear infinite;
+}
+.projects-row--down-2 .projects-row-track {
+  animation: projDown 44s linear infinite;
+}
+@keyframes projDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+@keyframes projUp {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.project-card {
+  border: 1px solid var(--border-light);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  cursor: pointer;
+}
+[data-theme="dark"] .project-card:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+.project-card__link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+.project-card__link:visited,
+.project-card__link:active {
+  color: inherit;
+}
+.project-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--bg-card-alt);
+  overflow: hidden;
+}
+.project-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+/* .project-card:hover .project-card__media img { transform: scale(1.05); } */
+.project-card__body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.project-card__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111111;
+  letter-spacing: -0.2px;
+  margin: 0;
+  line-height: 1.35;
+  transition: color 0.3s ease;
+}
+.project-card__tech {
+  font-family: "Space Mono", monospace;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--primary-blue);
+  margin: 0;
+  letter-spacing: 0.2px;
+  opacity: 0.85;
+  display: none;
+}
+[data-theme="dark"] .project-card__tech {
+  opacity: 0.9;
+}
+.project-card__desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-gray);
+  margin: 0;
+}
+[data-theme="dark"] .project-card__desc {
+  color: #b8bcc6;
+}
+.project-card__meta {
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.project-card__meta .meta-sep {
+  color: var(--border-soft);
+}
+
+@media (max-width: 1023px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .projects-row--down-2 {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .projects-row--down-2 {
+    display: block;
+  }
+  .projects-section .projects-header h2 {
+    font-size: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card__media img,
+  .bubble,
+  .breathe-orb {
+    animation: none !important;
+  }
+}

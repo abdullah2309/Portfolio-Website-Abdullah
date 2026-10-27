@@ -1,0 +1,628 @@
+:root,
+[data-theme="light"] {
+  --primary-blue: #183eeb;
+  --primary-blue-soft: #9fc4fe;
+  --bg-white: #fdfdfd;
+  --bg-offwhite: #f8f9fa;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f3f4f6;
+  --text-dark: #111111;
+  --text-gray: #555555;
+  --text-muted: #8e8799;
+  --border-light: #e5e7eb;
+  --border-soft: #dedede;
+  --toggle-bg: #f3f4f6;
+  --toggle-active: #1f2937;
+  --surface-sidebar: #ffffff;
+  --surface-hover: #f8f9fa;
+  --grid-line: rgba(0, 0, 0, 0.03);
+  --bubble-1: rgba(24, 62, 235, 0.45);
+  --bubble-2: rgba(159, 196, 254, 0.55);
+  --bubble-3: rgba(99, 102, 241, 0.4);
+  --bubble-4: rgba(14, 165, 233, 0.4);
+  --bubble-5: rgba(168, 85, 247, 0.4);
+}
+[data-theme="dark"] {
+  --primary-blue: #6b8bff;
+  --primary-blue-soft: #2a3b7a;
+  --bg-white: #0d1014;
+  --bg-offwhite: #11151c;
+  --bg-card: #161a22;
+  --bg-card-alt: #1c2230;
+  --text-dark: #e8e9ed;
+  --text-gray: #a0a3ad;
+  --text-muted: #7a7f8c;
+  --border-light: #2a2f3a;
+  --border-soft: #2f3540;
+  --toggle-bg: #1c2230;
+  --toggle-active: #6b8bff;
+  --surface-sidebar: #0d1014;
+  --surface-hover: #161a22;
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --bubble-1: rgba(107, 139, 255, 0.55);
+  --bubble-2: rgba(159, 196, 254, 0.5);
+  --bubble-3: rgba(129, 140, 248, 0.5);
+  --bubble-4: rgba(56, 189, 248, 0.45);
+  --bubble-5: rgba(192, 132, 252, 0.45);
+}
+body,
+.sidebar-container,
+.main-container,
+.profile-avatar__inner,
+.toggle-container,
+.mobile-menu-btn,
+.btn-outline,
+.form-input,
+.experience-logo,
+.experience-date,
+.profile-image-fill-bg,
+.my-contact-li,
+.contact-dot,
+.skills-text,
+.experience-meta a,
+.experience-toggle,
+.experience-toggle:hover,
+.experience-description,
+.experience-content li,
+.copy-email-btn {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 380px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* auto: a scrollbar appears only when the profile is taller than
+       the window (short laptops) instead of clipping the contact block */
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 50;
+    background-color: var(--surface-sidebar);
+    border-right: 1px solid var(--border-light);
+  }
+  .main-container {
+    margin-left: 380px;
+    width: calc(100% - 380px);
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-offwhite);
+  }
+}
+
+/* ---------------------------------------------------------------
+   ONE scrollbar for the entire site — same width, same track, same
+   thumb on every scrollable surface (sidebar, main column, play
+   page, body). WebKit rules first, Firefox takes the
+   scrollbar-color pair. Nothing below overrides the colours.
+   --------------------------------------------------------------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-blue-soft) var(--bg-card-alt);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-card-alt);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-blue-soft);
+  border-radius: 8px;
+  border: 2px solid var(--bg-card-alt);
+  transition: background 0.25s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-blue);
+}
+::-webkit-scrollbar-corner {
+  background: var(--bg-card-alt);
+}
+
+
+
+.hover-underline {
+  position: relative;
+  display: inline-block;
+}
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.profile-avatar {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  flex-shrink: 0;
+}
+.profile-avatar__inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--bg-card-alt);
+  border: 1px solid var(--border-light);
+}
+.profile-avatar__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.profile-avatar-frame {
+  position: absolute;
+  inset: -4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.profile-avatar:hover .profile-avatar-frame {
+  opacity: 1;
+}
+.profile-avatar-frame__drawing {
+  position: absolute;
+  inset: 0;
+}
+.profile-avatar-frame__line {
+  position: absolute;
+  background-color: var(--primary-blue);
+}
+.profile-avatar-frame__line--top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+.profile-avatar-frame__line--bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+.profile-avatar-frame__line--left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+}
+.profile-avatar-frame__line--right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+}
+.profile-avatar-frame__corner {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary-blue);
+  border: 1px solid var(--bg-card);
+}
+.profile-avatar-frame__corner--top-left {
+  top: -3px;
+  left: -3px;
+}
+.profile-avatar-frame__corner--top-right {
+  top: -3px;
+  right: -3px;
+}
+.profile-avatar-frame__corner--bottom-left {
+  bottom: -3px;
+  left: -3px;
+}
+.profile-avatar-frame__corner--bottom-right {
+  bottom: -3px;
+  right: -3px;
+}
+.profile-avatar-hover-label {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--primary-blue);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Space Mono", monospace;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.profile-avatar:hover .profile-avatar-hover-label {
+  opacity: 1;
+}
+.profile-avatar-size-pill {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: "Space Mono", monospace;
+  padding: 2px 8px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.profile-avatar:hover .profile-avatar-size-pill {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------
+   LOAD INTRO — the Figma selection plays itself once when the
+   website loads (see sidebar.js → avatarIntro): same frame, same
+   "img" label, same size pill as :hover, visible ~2.2s, then it
+   fades out. Pure addition — nothing about :hover changes.
+   --------------------------------------------------------------- */
+.profile-avatar.is-intro .profile-avatar-frame,
+.profile-avatar.is-intro .profile-avatar-hover-label,
+.profile-avatar.is-intro .profile-avatar-size-pill {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-avatar.is-intro .profile-avatar-frame,
+  .profile-avatar.is-intro .profile-avatar-hover-label,
+  .profile-avatar.is-intro .profile-avatar-size-pill {
+    transition: none;
+  }
+}
+
+.toggle-container {
+  display: inline-flex;
+  background-color: var(--bg-card-alt);
+  border: 1px solid var(--border-light);
+  border-radius: 50px;
+  padding: 4px;
+  height: 35px;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+.toggle-btn {
+  position: relative;
+  z-index: 10;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-radius: 50px;
+  transition: color 0.3s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.toggle-btn.active {
+  color: #ffffff;
+}
+.toggle-slider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  background-color: var(--primary-blue-soft);
+  border-radius: 50px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+[data-theme="dark"] .toggle-slider {
+  background-color: var(--primary-blue);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  background-color: var(--bg-card-alt);
+  border: 1px solid var(--border-light);
+  border-radius: 50px;
+  padding: 3px;
+  height: 30px;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+  flex-shrink: 0;
+}
+.theme-toggle-btn {
+  position: relative;
+  z-index: 10;
+  width: 26px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: color 0.3s ease;
+}
+.theme-toggle-btn.active {
+  color: #ffffff;
+}
+.theme-toggle-slider {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: 26px;
+  height: 22px;
+  background-color: var(--primary-blue);
+  border-radius: 50px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+  box-shadow: 0 2px 6px rgba(24, 62, 235, 0.25);
+}
+[data-theme="dark"] .theme-toggle-slider {
+  background-color: var(--primary-blue);
+}
+
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(24, 62, 235, 0.2);
+}
+.btn-primary:hover {
+  background-color: #0f2bb5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(24, 62, 235, 0.3);
+}
+.btn-outline {
+  border: 1px solid var(--border-light);
+  color: var(--text-dark);
+  background-color: var(--bg-card);
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--border-soft);
+}
+.text-primary {
+  color: var(--primary-blue);
+}
+.bg-primary {
+  background-color: var(--primary-blue);
+}
+.border-primary {
+  border-color: var(--primary-blue);
+}
+
+.form-input {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-dark);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(24, 62, 235, 0.1);
+}
+
+.my-text {
+  color: var(--text-dark);
+  font-size: 13px;
+  letter-spacing: -0.1px;
+  display: inline-flex !important;
+  align-items: center;
+}
+.my-text-tilte {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-dark);
+  letter-spacing: -0.1px;
+}
+.my-text-subtilte {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: -0.1px;
+}
+
+[data-theme="dark"] .text-gray-900 {
+  color: var(--text-dark) !important;
+}
+[data-theme="dark"] .text-gray-600 {
+  color: #b8bcc6 !important;
+}
+[data-theme="dark"] .text-gray-500 {
+  color: var(--text-muted) !important;
+}
+[data-theme="dark"] .text-gray-700 {
+  color: #c5c9d3 !important;
+}
+[data-theme="dark"] .text-gray-400 {
+  color: #6b7280 !important;
+}
+[data-theme="dark"] .bg-white {
+  background-color: var(--bg-card) !important;
+}
+[data-theme="dark"] .bg-\[\#ffffff\] {
+  background-color: var(--bg-card) !important;
+}
+[data-theme="dark"] .bg-gray-50 {
+  background-color: var(--bg-card-alt) !important;
+}
+[data-theme="dark"] .bg-blue-100 {
+  background-color: rgba(107, 139, 255, 0.15) !important;
+}
+[data-theme="dark"] .group:hover .bg-blue-100 {
+  background-color: rgba(107, 139, 255, 0.25) !important;
+}
+[data-theme="dark"] .border-gray-200 {
+  border-color: var(--border-light) !important;
+}
+[data-theme="dark"] .border-gray-100 {
+  border-color: var(--border-soft) !important;
+}
+[data-theme="dark"] .hover\:border-primary\/50:hover {
+  border-color: var(--primary-blue) !important;
+  opacity: 0.6;
+}
+[data-theme="dark"] .border-primary\/20 {
+  border-color: rgba(107, 139, 255, 0.3) !important;
+}
+[data-theme="dark"] .border-primary\/30 {
+  border-color: rgba(107, 139, 255, 0.4) !important;
+}
+[data-theme="dark"] .hover\:bg-white:hover {
+  background-color: var(--bg-card) !important;
+}
+[data-theme="dark"] .hover\:bg-blue-50:hover {
+  background-color: rgba(107, 139, 255, 0.12) !important;
+}
+[data-theme="dark"] .hover\:text-black:hover {
+  color: var(--text-dark) !important;
+}
+[data-theme="dark"] .bg-white\/80 {
+  background-color: rgba(22, 26, 34, 0.85) !important;
+}
+[data-theme="dark"] .text-primary {
+  color: var(--primary-blue) !important;
+}
+
+.mobile-menu-btn {
+  display: none !important;
+}
+.sidebar-backdrop {
+  display: none !important;
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  body {
+    overflow: hidden;
+  }
+  .sidebar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 50;
+    background-color: var(--surface-sidebar);
+    border-right: 1px solid var(--border-light);
+    padding: 20px 18px;
+  }
+  .main-container {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-offwhite);
+    padding-top: 0;
+  }
+  #modeToggle {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  body {
+    overflow: auto;
+  }
+  .sidebar-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    height: auto;
+    /* short phones: the profile card scrolls inside itself so the About
+       content stays reachable — scrollbar only when it actually overflows */
+    max-height: 85vh;
+    z-index: 50;
+    background-color: var(--surface-sidebar);
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-container .scrollable-content,
+  .sidebar-container > nav {
+    display: block !important;
+  }
+  .sidebar-container .scrollable-content {
+    max-height: none;
+    overflow-y: visible;
+  }
+  .sidebar-container .flex-shrink-0 > .mb-8 {
+    margin-bottom: 2rem;
+  }
+  #modeToggle {
+    display: none !important;
+  }
+  .main-container {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    padding-top: 0;
+    background-color: var(--bg-offwhite);
+  }
+  .page-section {
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+}
+

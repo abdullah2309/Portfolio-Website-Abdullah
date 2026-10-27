@@ -1,0 +1,466 @@
+/* ==============================================================
+   strings.css — "Skill network": the spring-physics tag cloud
+   that lives inside the #about section.
+
+   Borderless and bled out of the 980px text column, so the card
+   runs from the sidebar to the right edge of the window:
+
+   |sidebar|   (tag)——(tag)——(tag)   ———→  edge
+              (tag)——(tag)——(tag)
+   ←—— strings enter from both screen edges, no margin
+
+   A pill is dragged with the pointer; every stringed neighbour
+   follows with spring physics and the whole net snaps back.
+   Fully responsive: measured scatter → single zig-zag column
+   when the card gets narrow.
+   ============================================================== */
+
+/* ---------- section wrapper ---------------------------------- */
+.strings {
+  position: relative;
+  /* width stays `auto` — the JS bleed (negative inline margins)
+     has to be able to stretch the card to the window edges */
+  margin: 4px 0 34px;
+}
+
+/* ---------- stage (borderless play area, no background) ------- */
+.strings__stage {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 44vh, 440px);
+  overflow: hidden;
+  isolation: isolate;
+  container-type: inline-size; /* pill type scales with the card */
+}
+
+/* ---------- SVG strings -------------------------------------- */
+.strings__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.strings__svg line {
+  stroke: rgba(17, 24, 39, 0.13);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+[data-theme="dark"] .strings__svg line {
+  stroke: rgba(255, 255, 255, 0.14);
+}
+
+/* ---------- pill layer --------------------------------------- */
+.strings__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.strings__pill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+/* custom cursor takes over the whole stage when JS is running
+   on a mouse/trackpad device; touch devices keep `grab` */
+.strings--cursor .strings__stage {
+  cursor: none;
+}
+@media (pointer: coarse) {
+  .strings__pill {
+    cursor: grab;
+  }
+  .strings__pill.is-dragging {
+    cursor: grabbing;
+  }
+}
+
+.strings__pill-inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(5px, 0.9cqw, 8px);
+  white-space: nowrap;
+  padding: clamp(7px, 1.1cqw, 10px) clamp(11px, 1.9cqw, 16px);
+  border-radius: 23px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: clamp(11.5px, 1.55cqw, 15.5px);
+  font-weight: 450;
+  line-height: 1;
+  background: #ffffff;
+  color: #43474d;
+  border: 1px solid #e6e8ec;
+  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+[data-theme="dark"] .strings__pill-inner {
+  background: #171b23;
+  color: #b9bec8;
+  border-color: #2a2f3a;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* highlighted pills — same white card, a stronger frame */
+.strings__pill.is-active .strings__pill-inner {
+  color: #111111;
+  font-weight:500;
+  border-color: color-mix(in srgb, var(--primary-blue) 42%, #e2e5ea);
+  
+}
+[data-theme="dark"] .strings__pill.is-active .strings__pill-inner {
+  background: #1d2330;
+  color: #eef1f7;
+  border-color: color-mix(in srgb, var(--primary-blue) 55%, #2a2f3a);
+
+}
+
+.strings__pill:hover .strings__pill-inner {
+  transform: scale(1.05);
+}
+.strings__pill.is-dragging {
+  z-index: 40;
+}
+.strings__pill.is-dragging .strings__pill-inner {
+  transform: scale(1.07);
+  border-color: var(--primary-blue);
+
+}
+[data-theme="dark"] .strings__pill.is-dragging .strings__pill-inner {
+
+}
+
+/* click = a small pulse that tugs the network */
+.strings__pill.is-pulse .strings__pill-inner {
+  animation: stringsPulse 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes stringsPulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* while GSAP plays the entrance, hand-made transitions are off */
+.strings.is-entering .strings__pill-inner {
+  transition: none;
+}
+
+/* ---------- string-end dots on the pill edges ---------------- */
+.strings__dot {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.strings__dot--l {
+  left: -9px;
+}
+.strings__dot--r {
+  right: -9px;
+}
+
+/* ---------- emoji inside a label ----------------------------- */
+.strings__emoji {
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* ---------- entrance (used only when GSAP runs) -------------- */
+.strings.is-armed .strings__layer,
+.strings.is-armed .strings__svg {
+  opacity: 0;
+}
+
+/* ---------- custom cursor ------------------------------------ */
+.strings__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--primary-blue);
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    width 0.22s ease,
+    height 0.22s ease,
+    background-color 0.22s ease,
+    opacity 0.25s ease;
+}
+.strings__cursor.is-hover {
+  width: 30px;
+  height: 30px;
+  background: color-mix(in srgb, var(--primary-blue) 32%, transparent);
+}
+.strings__cursor.is-down {
+  width: 21px;
+  height: 21px;
+}
+@media (pointer: coarse) {
+  .strings__cursor {
+    display: none;
+  }
+}
+
+/* ---------- helper line under the card ----------------------- */
+.strings__hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 13px;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.strings__hint i {
+  color: var(--primary-blue);
+}
+
+/* ==============================================================
+   RESPONSIVE — the card shortens as the window shrinks; strings.js
+   measures it (COLUMN_BREAKPOINT) and switches to a single zig-zag
+   column once the card is too narrow for the scatter.
+   ============================================================== */
+@media (max-width: 1100px) {
+  .strings__stage {
+    height: clamp(420px, 46vh, 450px);
+  }
+}
+@media (max-width: 700px) {
+  .strings {
+    margin-bottom: 24px;
+  }
+  .strings__stage {
+    /* one column of 12 tags needs a taller card */
+    height: clamp(450px, 56vh, 520px);
+  }
+  .strings__hint {
+    font-size: 10.5px;
+    gap: 6px;
+  }
+}
+
+/* ==============================================================
+   LIST MODE — phones (<= 767px). strings.js adds `.is-list` and
+   the whole network steps aside: no SVG strings, no physics, no
+   drag. The skills render as a plain, numbered list — one row per
+   skill, exactly as it reads on a business card:
+
+   1  Software Development
+   2  Product Engineering
+   3  Full-Stack Development
+   …
+   ============================================================== */
+@media (max-width: 767px) {
+  .strings.is-list {
+    margin-left: 0 !important; /* never bleed — the list follows the column */
+    margin-right: 0 !important;
+    margin-bottom: 26px;
+  }
+  .strings.is-list .strings__stage {
+    height: auto;
+    overflow: visible;
+    padding: 2px 0 4px;
+    cursor: auto;
+    transform: none;
+  }
+  .strings.is-list .strings__svg,
+  .strings.is-list .strings__cursor,
+  .strings.is-list .strings__dot {
+    display: none;
+  }
+  .strings.is-list .strings__layer {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    counter-reset: skill-row;
+    transform: none;
+  }
+  .strings.is-list .strings__pill {
+    position: relative;
+    left: auto;
+    top: auto;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    transform: none !important;
+    touch-action: auto;
+    cursor: default;
+    will-change: auto;
+  }
+  /* the row number: 1, 2, 3 … */
+  .strings.is-list .strings__pill::before {
+    counter-increment: skill-row;
+    content: counter(skill-row);
+    flex: 0 0 auto;
+    min-width: 16px;
+    text-align: right;
+    font-family: "Space Mono", monospace;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--primary-blue);
+    opacity: 0.75;
+  }
+  .strings.is-list .strings__pill-inner {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .strings.is-list .strings__pill:hover .strings__pill-inner {
+    transform: none;
+  }
+
+  /* rows fade in, one after another, when the list is first shown */
+  .strings.is-list.is-list-in .strings__pill {
+    animation: stringsListIn 0.5s ease both;
+    animation-delay: calc(var(--i, 0) * 45ms);
+  }
+  @keyframes stringsListIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .strings.is-list.is-list-in .strings__pill {
+      animation: none;
+    }
+  }
+}
+
+/* ==============================================================
+   GLOBAL TRANSFORM / SCROLL RULES
+   (site-wide: they keep animations consistent across GPUs
+    and let Lenis own all smooth scrolling)
+   ============================================================== */
+
+/* Cross-system animation consistency: ensure GPU compositing */
+.projects-row-track,
+.skills-slider-track,
+.strings__pill,
+.strings__pill-inner,
+.strings__cursor,
+.fx-glyph,
+.fx-art svg,
+.fx-art .fx-g,
+.about-card,
+.experience-header,
+.experience-logo,
+.experience-date {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Scroll-jack marker for the headline fill animation */
+.fx-headline-lock {
+  position: relative;
+  z-index: 2;
+}
+
+/* Cross-system animation consistency:
+   - Force a consistent transform model across browsers (translate3d)
+   - Ensure animations that use transform/opacity are not throttled
+   - Disable the OS-level smooth-scroll handoff so Lenis controls everything */
+@media (hover: hover) and (pointer: fine) {
+  /* desktop / laptop — Lenis drives wheel/touchpad scroll */
+  .page-section--scrollable,
+  #content-play,
+  .main-container,
+  .scrollable-content,
+  .sidebar-container {
+    scroll-behavior: auto; /* Lenis handles smoothing, not the browser */
+    -webkit-overflow-scrolling: auto;
+    overscroll-behavior: contain;
+  }
+}
+@media (hover: none) and (pointer: coarse) {
+  /* touch devices — keep native scrolling smooth and momentum-based */
+  .page-section--scrollable,
+  #content-play,
+  .main-container,
+  .scrollable-content,
+  .sidebar-container {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Disable text selection on the interactive network so dragging
+   doesn't accidentally select text on Windows/Safari etc. */
+.strings__pill,
+.strings__pill-inner,
+.strings__dot,
+.strings__svg,
+.strings__layer,
+.strings__cursor,
+.skills-slider .skills-text,
+.projects-row,
+.projects-row-track {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Force a consistent 3D context for the pill network so the
+   spring-physics feels identical regardless of GPU vendor.
+   We avoid changing overflow/positioning — only add GPU layer. */
+.strings__stage,
+.strings__layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Respect reduced motion — disable smooth scroll & most animations */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  .page-section--scrollable,
+  #content-play,
+  .main-container,
+  .sidebar-container,
+  .scrollable-content,
+  body {
+    scroll-behavior: auto !important;
+  }
+  .strings__pill-inner,
+  .strings__dot,
+  .strings__cursor {
+    transition: none !important;
+  }
+  .strings__pill:hover .strings__pill-inner,
+  .strings__pill.is-dragging .strings__pill-inner {
+    transform: none !important;
+  }
+  .strings__pill.is-pulse .strings__pill-inner {
+    animation: none !important;
+  }
+}

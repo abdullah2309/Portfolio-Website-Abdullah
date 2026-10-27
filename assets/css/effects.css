@@ -1,0 +1,724 @@
+/* ======  SMOOTH SCROLL  ============================== */
+html {
+  scroll-behavior: smooth;
+}
+.page-section--scrollable,
+#content-play,
+.main-container,
+.sidebar-container,
+.scrollable-content,
+body {
+  scroll-behavior: smooth;
+}
+/* Respect reduced motion — disable smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  .page-section--scrollable,
+  #content-play,
+  .main-container,
+  .sidebar-container,
+  .scrollable-content,
+  body {
+    scroll-behavior: auto;
+  }
+}
+
+/* ===== Hover-p / hover-badge styles (moved from inline) ===== */
+.my-text-tilte2 {
+  /* font-size: 37px; */
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--text-dark, #111827);
+  letter-spacing: -1px;
+}
+
+/* ===== Hover effects — ONLY in #about ===== */
+#about .hover-p {
+  position: relative;
+}
+
+/* Text: default state — base styling for the headline.
+     The .fx-scrolltext-ready class (added by JS) takes over the
+     background/color and applies the sliding color-wipe effect.
+     Without that class (e.g. before JS runs), the headline just looks
+     like normal text. */
+#about .hover-p .my-text-tilte2 {
+  cursor: default;
+  transition:
+    color 0.2s ease,
+    background-size 0.2s ease;
+  line-height: 44px !important;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.my-text-tilte2-main:hover my-text-tilte2 {
+  color: #1d4ed8;
+}
+/* Text: hover state — overridden by .fx-scrolltext-ready:hover (below)
+     to use the sliding gradient instead of the older background-size trick. */
+#about .hover-p .my-text-tilte2:hover {
+  color: #1d4ed8;
+}
+
+#about .hover-p .my-text-tilte2:hover {
+  color: #1d4ed8;
+}
+
+#about .hover-p .my-text-tilte2-main:hover {
+  color: #1d4ed8;
+}
+.my-text-tilte2-main:hover my-text-tilte2 {
+  color: #1d4ed8;
+}
+/* Icon + Badge: default hidden */
+#about .hover-icon,
+#about .hover-badge {
+  display: none;
+  position: absolute;
+}
+
+#about .hover-icon {
+  left: 0;
+  top: -28px;
+  width: 20px;
+  height: 20px;
+  color: #2563eb;
+}
+
+#about .hover-badge {
+  right: 0;
+  top: -26px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  letter-spacing: 0.03em;
+}
+
+/* Hover par instantly show (no animation) */
+#about .hover-p .my-text-tilte2:hover ~ .hover-icon {
+  display: block;
+}
+#about .hover-p .my-text-tilte2:hover ~ .hover-badge {
+  display: inline-block;
+}
+
+/* ====================================================== */
+/* ======  ICON REVEAL HOVER ANIMATIONS  ================ */
+/* ====================================================== */
+
+/* --- Work/Play toggle icon reveal (ACTIVE tab only, rounded bottom-to-top emergence) --- */
+#modeToggle {
+  overflow: visible;
+}
+.toggle-btn-icon-reveal {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  margin-bottom: -2px;
+  transition: opacity 0.3s ease;
+}
+.toggle-btn-icon-reveal i {
+  font-size: 12px;
+  color: var(--primary-blue);
+  opacity: 0;
+  /* Start INSIDE the button area (translateY positive) so they look like they emerge from behind */
+  transform: translate(0, 14px) scale(0.3) rotate(0deg);
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* Only the ACTIVE tab reveals icons when ANY part of the #modeToggle is hovered */
+#modeToggle:hover .toggle-btn.active .toggle-btn-icon-reveal {
+  opacity: 1;
+}
+#modeToggle:hover .toggle-btn.active .toggle-btn-icon-reveal i {
+  opacity: 0.85;
+}
+/* Rounded fan-out: each icon curves up & outward at a different angle, staggered */
+#modeToggle:hover
+  .toggle-btn.active
+  .toggle-btn-icon-reveal
+  i:nth-child(1) {
+  transform: translate(-22px, -12px) scale(1) rotate(-14deg);
+  transition-delay: 0.04s;
+}
+#modeToggle:hover
+  .toggle-btn.active
+  .toggle-btn-icon-reveal
+  i:nth-child(2) {
+  transform: translate(-11px, -18px) scale(1) rotate(-6deg);
+  transition-delay: 0.09s;
+}
+#modeToggle:hover
+  .toggle-btn.active
+  .toggle-btn-icon-reveal
+  i:nth-child(3) {
+  transform: translate(0, -16px) scale(1) rotate(0deg);
+  transition-delay: 0.14s;
+}
+#modeToggle:hover
+  .toggle-btn.active
+  .toggle-btn-icon-reveal
+  i:nth-child(4) {
+  transform: translate(11px, -19px) scale(1) rotate(6deg);
+  transition-delay: 0.19s;
+}
+#modeToggle:hover
+  .toggle-btn.active
+  .toggle-btn-icon-reveal
+  i:nth-child(5) {
+  transform: translate(22px, -17px) scale(1) rotate(14deg);
+  transition-delay: 0.24s;
+}
+
+/* --- "Software Engineer" highlight + icon reveal --- */
+.se-highlight {
+  position: relative;
+  display: inline;
+  /* Visual highlight removed per user request.
+     Only positioning is kept so the hover icon reveal still works. */
+  cursor: default;
+}
+.se-icon-reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 8px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+.se-icon-reveal i {
+  font-size: 16px;
+  color: var(--primary-blue);
+  opacity: 0;
+  transform: translateY(0) scale(0.3);
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.se-highlight:hover .se-icon-reveal {
+  opacity: 1;
+}
+.se-highlight:hover .se-icon-reveal i {
+  opacity: 0.7;
+  transform: translateY(-28px) scale(1);
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(1) {
+  transition-delay: 0.05s;
+  transform: translate(-22px, -28px) scale(1) rotate(-8deg);
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(2) {
+  transition-delay: 0.12s;
+  transform: translate(-8px, -32px) scale(1) rotate(5deg);
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(3) {
+  transition-delay: 0.19s;
+  transform: translate(8px, -32px) scale(1) rotate(-3deg);
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(4) {
+  transition-delay: 0.26s;
+  transform: translate(22px, -28px) scale(1) rotate(7deg);
+}
+/* Floating while hovered */
+.se-highlight:hover .se-icon-reveal i:nth-child(1) {
+  animation: seFloat1 2.5s ease-in-out 0.35s infinite;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(2) {
+  animation: seFloat2 2.8s ease-in-out 0.35s infinite;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(3) {
+  animation: seFloat3 2.2s ease-in-out 0.35s infinite;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(4) {
+  animation: seFloat1 3s ease-in-out 0.35s infinite;
+}
+@keyframes seFloat1 {
+  0%,
+  100% {
+    transform: translate(-22px, -28px) scale(1) rotate(-8deg);
+  }
+  50% {
+    transform: translate(-24px, -34px) scale(1.05) rotate(-4deg);
+  }
+}
+@keyframes seFloat2 {
+  0%,
+  100% {
+    transform: translate(-8px, -32px) scale(1) rotate(5deg);
+  }
+  50% {
+    transform: translate(-6px, -38px) scale(1.05) rotate(8deg);
+  }
+}
+@keyframes seFloat3 {
+  0%,
+  100% {
+    transform: translate(8px, -32px) scale(1) rotate(-3deg);
+  }
+  50% {
+    transform: translate(10px, -36px) scale(1.05) rotate(1deg);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .toggle-btn-icon-reveal,
+  .se-icon-reveal {
+    transition: none;
+  }
+  #modeToggle:hover .toggle-btn.active .toggle-btn-icon-reveal i,
+  .se-highlight:hover .se-icon-reveal i {
+    animation: none !important;
+  }
+}
+
+/* --- "Software Engineer" highlight + icon reveal (FIXED) --- */
+.se-highlight {
+  position: relative;
+  display: inline-block;
+  /* Visual highlight removed per user request — keeps the same text styling
+     as surrounding text. Only the positioning (for hover icon reveal) is kept. */
+  cursor: default;
+  z-index: 1;
+  vertical-align: baseline;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.se-highlight:hover {
+  /* Hover highlight removed (no background/border-radius), but z-index
+     bumped so the icon-reveal stays above the surrounding text. */
+  z-index: 10;
+}
+
+.se-icon-reveal {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  pointer-events: none;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  margin-bottom: -2px;
+}
+
+.se-icon-reveal i {
+  font-size: 12px;
+  color: var(--primary-blue);
+  opacity: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  /* Start INSIDE the highlight (positive Y) so they look like they emerge from behind */
+  transform: translate(0, 14px) scale(0.3) rotate(0deg);
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.se-highlight:hover .se-icon-reveal {
+  opacity: 1;
+}
+
+/* Rounded fan-out: each icon curves up & outward at a different angle, staggered */
+.se-highlight:hover .se-icon-reveal i:nth-child(1) {
+  transform: translate(-26px, -24px) scale(1) rotate(-14deg);
+  transition-delay: 0.04s;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(2) {
+  transform: translate(-9px, -30px) scale(1) rotate(-6deg);
+  transition-delay: 0.1s;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(3) {
+  transform: translate(9px, -30px) scale(1) rotate(6deg);
+  transition-delay: 0.16s;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(4) {
+  transform: translate(26px, -24px) scale(1) rotate(14deg);
+  transition-delay: 0.22s;
+}
+
+/* Floating while hovered */
+.se-highlight:hover .se-icon-reveal i:nth-child(1) {
+  animation: seFloat1 2.5s ease-in-out 0.55s infinite;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(2) {
+  animation: seFloat2 2.8s ease-in-out 0.55s infinite;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(3) {
+  animation: seFloat3 2.2s ease-in-out 0.55s infinite;
+}
+.se-highlight:hover .se-icon-reveal i:nth-child(4) {
+  animation: seFloat4 3s ease-in-out 0.55s infinite;
+}
+
+@keyframes seFloat1 {
+  0%,
+  100% {
+    transform: translate(-26px, -24px) scale(1) rotate(-14deg);
+  }
+  50% {
+    transform: translate(-28px, -28px) scale(1.06) rotate(-10deg);
+  }
+}
+@keyframes seFloat2 {
+  0%,
+  100% {
+    transform: translate(-9px, -30px) scale(1) rotate(-6deg);
+  }
+  50% {
+    transform: translate(-8px, -34px) scale(1.06) rotate(-2deg);
+  }
+}
+@keyframes seFloat3 {
+  0%,
+  100% {
+    transform: translate(9px, -30px) scale(1) rotate(6deg);
+  }
+  50% {
+    transform: translate(8px, -34px) scale(1.06) rotate(2deg);
+  }
+}
+@keyframes seFloat4 {
+  0%,
+  100% {
+    transform: translate(26px, -24px) scale(1) rotate(14deg);
+  }
+  50% {
+    transform: translate(28px, -28px) scale(1.06) rotate(10deg);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .se-icon-reveal,
+  .se-highlight {
+    transition: none;
+  }
+  .se-highlight:hover .se-icon-reveal i {
+    animation: none !important;
+  }
+}
+
+/* ============================================================== */
+/* ===== NEW: Experience card hover — ripple + slide-in detail === */
+/* ============================================================== */
+.experience-item .experience-header {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.experience-item .experience-header > * {
+  position: relative;
+  z-index: 1;
+}
+.experience-item.xp-active .experience-header {
+  border-color: var(--primary-blue);
+}
+
+.xp-ripple {
+  position: absolute !important;
+  z-index: 0 !important;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--primary-blue) 18%, transparent),
+    color-mix(in srgb, var(--primary-blue) 7%, transparent) 70%
+  );
+  transform: scale(var(--s0, 0.05));
+  opacity: 0.95;
+  transition:
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+.xp-ripple.grow {
+  transform: scale(1);
+}
+.xp-ripple.out {
+  opacity: 0;
+}
+
+.xp-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0s 0.8s;
+}
+.xp-stage.open {
+  visibility: visible;
+  transition-delay: 0s;
+}
+.xp-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 12, 24, 0.38);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.xp-stage.open .xp-backdrop {
+  opacity: 1;
+}
+
+.xp-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(720px, 92vw);
+  pointer-events: auto;
+  transform: translate(calc(-50% + 110vw), -50%) skewX(-6deg);
+  opacity: 0;
+  transition:
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s ease;
+}
+.xp-stage.open .xp-panel {
+  transform: translate(-50%, -50%) skewX(0);
+  opacity: 1;
+}
+
+.xp-grip {
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 14px;
+  height: 64px;
+  margin-top: -32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: var(--primary-blue);
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 6px 18px rgba(24, 62, 235, 0.35);
+}
+.xp-grip i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.85;
+}
+
+.xp-body {
+  position: relative;
+  max-height: 86vh;
+  overflow-y: auto;
+  padding: 26px 28px 24px;
+  background: var(--bg-card);
+  color: var(--text-dark);
+  border: 1px solid var(--border-light);
+  border-top: 3px solid var(--primary-blue);
+  border-radius: 14px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+  font-family: "Inter", system-ui, sans-serif;
+}
+.xp-eyebrow {
+  font:
+    11px "Space Mono",
+    monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--primary-blue);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.xp-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--primary-blue);
+}
+.xp-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.xp-logo {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.xp-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+.xp-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--text-dark);
+  line-height: 1.25;
+}
+.xp-sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 6px;
+}
+.xp-sub a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-decoration-color: var(--border-soft);
+  text-underline-offset: 3px;
+}
+.xp-sub a:hover {
+  color: var(--primary-blue);
+  text-decoration-color: var(--primary-blue);
+}
+.xp-date {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border-light);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+.xp-label {
+  margin: 22px 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+  font:
+    600 11px "Space Mono",
+    monospace;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.xp-desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-gray);
+}
+.xp-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.xp-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-gray);
+}
+.xp-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 12px;
+  height: 1px;
+  background: var(--primary-blue);
+}
+.xp-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--bg-card-alt);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+}
+.xp-close:hover {
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+.xp-swap {
+  animation: xpSwap 0.35s ease;
+}
+@keyframes xpSwap {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (hover: none) {
+  .xp-backdrop {
+    pointer-events: auto;
+  }
+  .xp-stage.open {
+    pointer-events: auto;
+  }
+}
+@media (max-width: 640px) {
+  .xp-body {
+    padding: 22px 18px 18px;
+  }
+  .xp-title {
+    font-size: 17px;
+  }
+  .xp-grip {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xp-panel {
+    transform: translate(-50%, -50%) !important;
+    transition: opacity 0.3s ease;
+  }
+  .xp-ripple {
+    transition: opacity 0.2s ease;
+    transform: scale(1);
+  }
+}
+
