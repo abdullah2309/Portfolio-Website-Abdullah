@@ -89,7 +89,8 @@
   white-space: nowrap;
   padding: clamp(7px, 1.1cqw, 10px) clamp(11px, 1.9cqw, 16px);
   border-radius: 23px;
-  font-family: "Inter", system-ui, sans-serif;
+  /* font-family: "Inter", system-ui, sans-serif; */
+  /* font-size: clamp(11.5px, 1.55cqw, 15.5px); */
   font-size: clamp(11.5px, 1.55cqw, 15.5px);
   font-weight: 450;
   line-height: 1;
